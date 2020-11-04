@@ -1,0 +1,18 @@
+MANDATORTY:
+Form for the user to add a new item
+
+title, description, dueDate and priority.
+button for user to delete item
+
+expand a single todo to see/edit its details
+add due date
+
+navbar with tabs for different projects
+Page with all projects
+
+localStorage
+
+
+EXTRA:
+checklist
+option to edit the item (press naming to edit)
