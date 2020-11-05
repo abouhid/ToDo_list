@@ -18,9 +18,15 @@ const defaultTasks = () => {
   const dtask3 = task('A Clash of Kings');
   const dtask4 = task('A Game of Thrones');
   const dTodoList1 = toDoList('A Song of Ice and Fire');
-  
+  const dTodoList2 = toDoList('The Lord of the Rings');
+  const dtask5 = task('The Two Towers');
+  dTodoList2.list.push(dtask5);
+
+
   dTodoList1.list.push(dtask1, dtask2, dtask3, dtask4);
   projectsList.unshift(dTodoList1);
+  projectsList.unshift(dTodoList2);
+
   console.log(projectsList);
 
   return dTodoList1;
@@ -63,6 +69,12 @@ const renderLists = (projectsList) => {
     const title = document.createElement('h3');
     title.textContent = projectsList[i].title;
     projectsListContainer.appendChild(title);
+
+    title.addEventListener('click', (e) => {
+      e.preventDefault();
+      addNewTask(projectsList[i]);
+      renderTasks(projectsList[i]);
+    });
   }
 }
 
@@ -78,6 +90,8 @@ sidebar_submit.addEventListener('click', (e) => {
   addNewList(projectsList);
   renderLists(projectsList);
 });
+
+
 
 
 const defaultInputs = defaultTasks();
