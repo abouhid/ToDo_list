@@ -1,24 +1,30 @@
-const submit = document.getElementById('submit');
-const form = document.getElementById('book-form');
-const newTask = document.getElementById('task-input').value;
-const main = document.querySelector('main')
+import { render } from "../index";
 
-const ToDoList = (title) => {
-    this.title = title;
-    this.list = [];
+const submit = document.getElementById("submit");
+const form = document.getElementById("book-form");
 
-}
-const Task = (title) => {
-    this.title = title;
-}
-// title, description, dueDate and priority.
+const main = document.querySelector("main");
 
-// submit.addEventListener('click', (e) => {
-//     e.preventDefault();
-//     addBookToLibrary();
-// });
+const toDoList = (title) => {
+  const self = { title };
+  self.list = [];
 
-export {
-    ToDoList,
-    Task
-}
+  const toDoListMethods = (self) => ({
+    add: () => {
+      const newTaskInput = document.getElementById("task-input").value;
+      const newTask = task(newTaskInput);
+      self.list.push(newTask);
+      render(self);
+    },
+  });
+
+  return Object.assign(self, toDoListMethods);
+};
+
+const task = (title) => {
+  const self = { title };
+
+  return Object.assign(self);
+};
+
+export { toDoList, task };
