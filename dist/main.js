@@ -1,1 +1,1 @@
-document.body.appendChild(function(){const e=document.createElement("div");return e.innerHTML=_.join(["Hello","webpack"]," "),e}());
+(()=>{"use strict";document.getElementById("submit"),document.getElementById("book-form"),document.getElementById("task-input").value,document.querySelector("main");document.querySelector("main"),console.log(new(e=>{(void 0).title=e,(void 0).list=[]})("A Song of Ice and Fire"))})();

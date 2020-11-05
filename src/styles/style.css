@@ -1,0 +1,13 @@
+body {
+    padding: 10px
+}
+
+.panel {
+    display: flex;
+}
+
+.nav-panel{
+    display: flex;
+    flex-direction: column;
+    
+}
