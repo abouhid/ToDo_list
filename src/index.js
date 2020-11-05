@@ -1,4 +1,7 @@
-import { toDoList, task } from './tabs/todo'
+import {
+  toDoList,
+  task
+} from './tabs/todo'
 
 const submit = document.getElementById('submit');
 const sidebar_submit = document.getElementById('sidebar-submit');
@@ -55,8 +58,10 @@ const addNewTask = (obj) => {
 
 submit.addEventListener('click', (e) => {
   e.preventDefault();
-  addNewTask(defaultInputs);
-  renderTasks(defaultInputs);
+  let active = document.querySelector('.active').innerText;
+  let current_project = projectsList.filter(obj => obj.title === active)[0];
+  addNewTask(current_project);
+  renderTasks(current_project);
 });
 
 const renderLists = (projectsList) => {
@@ -66,12 +71,19 @@ const renderLists = (projectsList) => {
 
   for (let i = 0; i < projectsList.length; i += 1) {
 
+
     const title = document.createElement('h3');
     title.textContent = projectsList[i].title;
     projectsListContainer.appendChild(title);
 
+    if (projectsList[0] && i===0) {
+      title.classList.add('active')
+    };
+
     title.addEventListener('click', (e) => {
       e.preventDefault();
+      document.querySelector('.active').classList.remove('active');
+      title.classList.add('active')
       addNewTask(projectsList[i]);
       renderTasks(projectsList[i]);
     });

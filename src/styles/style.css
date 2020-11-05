@@ -16,3 +16,7 @@ body {
     width: 300px;
     background-color: wheat;
 }
+
+.active {
+    color: red;
+}
