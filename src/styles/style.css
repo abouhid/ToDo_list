@@ -11,3 +11,8 @@ body {
     flex-direction: column;
     
 }
+
+.sidebar {
+    width: 300px;
+    background-color: wheat;
+}
