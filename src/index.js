@@ -40,7 +40,8 @@ const renderTasks = (obj) => {
     const date = document.createElement("p");
     const priority = document.createElement("p");
     const showBtn = addShowDetailsBtn(detailsContainer);
-  
+    const deleteTaskBtn = addDeleteTaskBtn(obj,i);
+
     title.textContent = obj.list[i].title;
     desc.textContent = obj.list[i].desc;
     date.textContent = obj.list[i].dueDate;
@@ -50,6 +51,7 @@ const renderTasks = (obj) => {
 
     taskContainer.appendChild(title);
     taskContainer.appendChild(showBtn);
+    taskContainer.appendChild(deleteTaskBtn);
     detailsContainer.appendChild(desc);
     detailsContainer.appendChild(priority);
     detailsContainer.appendChild(date);
@@ -65,7 +67,6 @@ const addNewTask = (obj) => {
   const taskPriorityInput = document.getElementById("task-priority-input").value;
   
   const newTask = task(taskTitleInput, taskDescInput, taskDateInput, taskPriorityInput);
-  console.log(newTask);
   form.reset();
   obj.list.unshift(newTask);
 };
@@ -81,6 +82,22 @@ const addShowDetailsBtn = (container) => {
   });
 
   return chevron;
+}
+
+const addDeleteTaskBtn = (obj,i) => {
+  const deleteBtn = document.createElement('button');
+
+  deleteBtn.textContent = 'Delete';
+
+  deleteBtn.addEventListener('click', () => {
+ 
+    obj.list.splice(i, 1);
+    renderTasks(obj);
+    // saveLocalStorage();
+  });
+
+  return deleteBtn;
+
 }
 
 submit.addEventListener('click', (e) => {
@@ -111,7 +128,6 @@ const renderLists = (projectsList) => {
       e.preventDefault();
       document.querySelector('.active').classList.remove('active');
       title.classList.add('active')
-      addNewTask(projectsList[i]);
       renderTasks(projectsList[i]);
     });
   }
