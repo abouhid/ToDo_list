@@ -14,13 +14,20 @@ MANDATORTY:
 - right-sidebar for task info edit and view
 - localStorage
 - devide code into modules
-- solve problem with active project
+
 
 
 EXTRA:
-checklist
-option to edit the item (press naming to edit)
 validations of inputs
 append multiple values at once
-
 method to clean instead of while loop
+
+
+Monday plans: 
+=>style 
+--sidebar
+--task-form
+--taskList
+
+
+Priority background-colors

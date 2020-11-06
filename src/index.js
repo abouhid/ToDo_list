@@ -63,17 +63,15 @@ const renderTasks = (obj,editForm=null,editNum=null) => {
 
       taskContainer.appendChild(checkbox);
       taskContainer.appendChild(title);
+      taskContainer.appendChild(date);
+
       taskContainer.appendChild(showBtn);
       taskContainer.appendChild(deleteTaskBtn);
       taskContainer.appendChild(editBtn);
       if (i===editNum) { taskContainer.appendChild(editForm)};  
-
-      console.log(editForm) 
-      console.log(taskContainer)
       
       detailsContainer.appendChild(desc);
       detailsContainer.appendChild(priority);
-      detailsContainer.appendChild(date);
       taskContainer.appendChild(detailsContainer);
       appendDone(obj,i,taskContainer,doneList,tasksList)
     })()
@@ -126,7 +124,7 @@ const addEditTaskForm = (obj, i) => {
     obj.list[i].desc = taskDescInput.value;
     obj.list[i].dueDate = taskDateInput.value;
     obj.list[i].priority = taskPriorityInput.value;
-    // editForm.style.display = "none";
+    renderTasks(obj)
   });
 
   return editForm;
