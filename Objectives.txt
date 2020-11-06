@@ -1,18 +1,24 @@
 MANDATORTY:
-Form for the user to add a new item
-
-title, description, dueDate and priority.
-button for user to delete item
-
-expand a single todo to see/edit its details
-add due date
-
-navbar with tabs for different projects
-Page with all projects
-
-localStorage
+- form to add a new task
+- form to add a new project
+- container with all tasks
+- container with all projects
+- task should have
+    - title
+    - description
+    - dueDate
+    - priority
+    - delete button
+    - done button
+- container with done tasks
+- right-sidebar for task info edit and view
+- localStorage
+- devide code into modules
+- solve problem with active project
 
 
 EXTRA:
 checklist
 option to edit the item (press naming to edit)
+validations of inputs
+append multiple values at once

@@ -22,37 +22,58 @@
     <div class="panel">
       <div class="sidebar">
         <form action="" id="sidebar-form" class="mt-4">
-
           <input
             class="form-control mb-3"
             type="text"
             id="sidebar-input"
             placeholder="Create a new List"
           />
-    
-          <input type="submit" value="Submit" id="sidebar-submit" class="btn btn-secondary" />
+
+          <input
+            type="submit"
+            value="Submit"
+            id="sidebar-submit"
+            class="btn btn-secondary"
+          />
         </form>
         <div class="project-names"></div>
       </div>
       <div class="nav-panel ml-4">
         <nav></nav>
         <main>
-
           <form action="" id="book-form" class="mt-4">
-            <label>Task:</label>
-            <input type="checkbox" id="read-input" value="true" />
-
             <input
               class="form-control mb-3"
               type="text"
               id="task-input"
-              placeholder="Add a task"
+              placeholder="Add a task title"
             />
-      
-            <input type="submit" value="Submit" id="submit" class="btn btn-secondary" />
+            <input
+              class="form-control mb-3"
+              type="text"
+              id="task-desc-input"
+              placeholder="Add a task description"
+            />
+            <input
+              class="form-control mb-3"
+              type="date"
+              id="task-date-input"
+              placeholder="Add a task description"
+            />
+            <select name="priorities" id="task-priority-input" class="custom-select custom-select-lg mb-3">
+              <option selected>Choose priority</option>
+              <option value="high">High</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
+            </select>
+            <input
+              type="submit"
+              value="Submit"
+              id="submit"
+              class="btn btn-secondary"
+            />
           </form>
           <div class="tasks-list"></div>
-
         </main>
       </div>
     </div>
