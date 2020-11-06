@@ -11,7 +11,7 @@ const sidebar_form = document.getElementById("sidebar-form");
 const projectsList = []
 
 const defaultTasks = () => {
-  const dtask1 = task('The Winds of Winter', 'desc1', '2020-12-12', 'high');
+  const dtask1 = task('The Winds of Winter', 'desc1', '2020-12-12', 'high', true);
   const dtask2 = task('A Dream of Spring', 'desc1', '2020-12-12', 'high');
   const dtask3 = task('A Clash of Kings', 'desc1', '2020-12-12', 'high');
   const dtask4 = task('A Game of Thrones', 'desc1', '2020-12-12', 'high');
@@ -42,16 +42,20 @@ const renderTasks = (obj) => {
     const showBtn = addShowDetailsBtn(detailsContainer);
     const deleteTaskBtn = addDeleteTaskBtn(obj,i);
     const checkbox = addCheckbox(obj,i);
+    const checkboxText = document.createElement('p')
+    checkboxText.textContent = obj.list[i].status;
 
 
     title.textContent = obj.list[i].title;
     desc.textContent = obj.list[i].desc;
     date.textContent = obj.list[i].dueDate;
     priority.textContent = obj.list[i].priority;
+    
 
     detailsContainer.style.display = "none";
 
     taskContainer.appendChild(checkbox);
+    taskContainer.appendChild(checkboxText);
     taskContainer.appendChild(title);
     taskContainer.appendChild(showBtn);
     taskContainer.appendChild(deleteTaskBtn);
@@ -106,21 +110,12 @@ const addDeleteTaskBtn = (obj,i) => {
 const addCheckbox = (obj,i) => {
   const checkbox = document.createElement('input');
   checkbox.type = 'checkbox';
-  checkbox.checked = obj.list[i].status
+  checkbox.checked = obj.list[i].status;
 
   checkbox.addEventListener('change', () => {
- 
-    if (checkbox.checked){
-      console.log(checkbox.checked)
-      obj.list[i].status = false;
-      checkbox.checked =obj.list[i].status
-    } else {
-      console.log(checkbox.checked)
-      obj.list[i].status = true;
-      checkbox.checked =obj.list[i].status
-    }
-    // saveLocalStorage();
+    obj.list[i].status = checkbox.checked ? true : false;
     renderTasks(obj)
+    // saveLocalStorage();
   });
 
   return checkbox
