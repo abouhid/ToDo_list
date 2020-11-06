@@ -9,11 +9,10 @@ const main = document.querySelector('main')
 const sidebar = document.querySelector('sidebar')
 const tasksList = document.querySelector('.tasks-list')
 const projectsListContainer = document.querySelector('.project-names')
-const form = document.getElementById("book-form");
+const form = document.getElementById("task-form");
 const sidebarForm = document.getElementById("sidebar-form");
 const projectsList = []
 const doneList = document.querySelector('.done-list');
-
 
 const defaultTasks = () => {
   const dtask1 = task('The Winds of Winter', 'desc1', '2020-12-12', 'high', true);
@@ -32,7 +31,7 @@ const defaultTasks = () => {
   projectsList.push(dTodoList2);
 };
 
-const renderTasks = (obj) => {
+const renderTasks = (obj,editForm=null,editNum=null) => {
   while (tasksList.firstChild) {
     tasksList.removeChild(tasksList.firstChild);
   }
@@ -67,6 +66,11 @@ const renderTasks = (obj) => {
       taskContainer.appendChild(showBtn);
       taskContainer.appendChild(deleteTaskBtn);
       taskContainer.appendChild(editBtn);
+      if (i===editNum) { taskContainer.appendChild(editForm)};  
+
+      console.log(editForm) 
+      console.log(taskContainer)
+      
       detailsContainer.appendChild(desc);
       detailsContainer.appendChild(priority);
       detailsContainer.appendChild(date);
@@ -74,6 +78,73 @@ const renderTasks = (obj) => {
       appendDone(obj,i,taskContainer,doneList,tasksList)
     })()
   }
+}
+
+const addEditTaskForm = (obj, i) => {
+  const editForm = document.createElement('form');
+  const taskTitleInput = document.createElement('input');
+  const taskDescInput = document.createElement('input');
+  const taskDateInput = document.createElement("input");
+  const taskPriorityInput = document.createElement("select");
+  const submit = document.createElement("input");
+
+  taskTitleInput.type = "text";
+  taskDescInput.type = "text";
+  taskDateInput.type = "date";
+  submit.type = "submit";
+
+  const priorityOptionHigh = document.createElement("option")
+  const priorityOptionMedium = document.createElement("option")
+  const priorityOptionLow = document.createElement("option")
+  
+  priorityOptionHigh.value = "high";
+  priorityOptionMedium.value = "medium";
+  priorityOptionLow.value = "low";
+
+  priorityOptionHigh.textContent = "High";
+  priorityOptionMedium.textContent = "Medium";
+  priorityOptionLow.textContent = "Low";
+
+  taskTitleInput.value = obj.list[i].title;
+  taskDescInput.value = obj.list[i].desc;
+  taskDateInput.value = obj.list[i].dueDate;
+  taskPriorityInput.value = obj.list[i].priority;
+
+  taskPriorityInput.appendChild(priorityOptionHigh);
+  taskPriorityInput.appendChild(priorityOptionMedium);
+  taskPriorityInput.appendChild(priorityOptionLow);
+
+  editForm.appendChild(taskTitleInput);
+  editForm.appendChild(taskDescInput);
+  editForm.appendChild(taskDateInput);
+  editForm.appendChild(taskPriorityInput);
+  editForm.appendChild(submit);
+
+  submit.addEventListener("click", (e) => {
+    e.preventDefault();
+    obj.list[i].title = taskTitleInput.value;
+    obj.list[i].desc = taskDescInput.value;
+    obj.list[i].dueDate = taskDateInput.value;
+    obj.list[i].priority = taskPriorityInput.value;
+    // editForm.style.display = "none";
+  });
+
+  return editForm;
+}
+
+const addEditTaskBtn = (obj, i, container) => {
+  const editBtn = document.createElement("button");
+  
+  editBtn.textContent = "Edit";
+
+  editBtn.addEventListener("click", () => {
+    const editForm = addEditTaskForm(obj, i);
+    const numEdit =i
+    // container.appendChild(editForm);
+     renderTasks(obj,editForm,i);
+  });
+
+  return editBtn;
 }
 
 const appendDone =(obj,i,taskContainer,doneList,tasksList) => {
@@ -140,76 +211,7 @@ const addCheckbox = (obj, i) => {
 
 }
 
-const addEditTaskForm = (obj, i) => {
-  const form = document.createElement('form');
-  const taskTitleInput = document.createElement('input');
-  const taskDescInput = document.createElement('input');
-  const taskDateInput = document.createElement("input");
-  const taskPriorityInput = document.createElement("select");
-  const submit = document.createElement("input");
 
-  taskTitleInput.type = "text";
-  taskDescInput.type = "text";
-  taskDateInput.type = "date";
-  submit.type = "submit";
-
-  const priorityOptionHigh = document.createElement("option")
-  const priorityOptionMedium = document.createElement("option")
-  const priorityOptionLow = document.createElement("option")
-  
-  priorityOptionHigh.value = "high";
-  priorityOptionMedium.value = "medium";
-  priorityOptionLow.value = "low";
-
-  priorityOptionHigh.textContent = "High";
-  priorityOptionMedium.textContent = "Medium";
-  priorityOptionLow.textContent = "Low";
-
-  taskTitleInput.value = obj.list[i].title;
-  taskDescInput.value = obj.list[i].desc;
-  taskDateInput.value = obj.list[i].dueDate;
-  taskPriorityInput.value = obj.list[i].priority;
-
-  taskPriorityInput.appendChild(priorityOptionHigh);
-  taskPriorityInput.appendChild(priorityOptionMedium);
-  taskPriorityInput.appendChild(priorityOptionLow);
-
-  form.appendChild(taskTitleInput);
-  form.appendChild(taskDescInput);
-  form.appendChild(taskDateInput);
-  form.appendChild(taskPriorityInput);
-  form.appendChild(submit);
-
-  submit.addEventListener("click", (e) => {
-    e.preventDefault();
-    obj.list[i].title = taskTitleInput.value;
-    obj.list[i].desc = taskDescInput.value;
-    obj.list[i].dueDate = taskDateInput.value;
-    obj.list[i].priority = taskPriorityInput.value;
-    // form.style.display = "none";
-  });
-
-  return form;
-}
-
-const addEditTaskBtn = (obj, i, container) => {
-  const editBtn = document.createElement("button");
-
-  editBtn.textContent = "Edit";
-
-  editBtn.addEventListener("click", () => {
-    const form = addEditTaskForm(obj, i);
-
-    container.appendChild(form);
-    console.log(form);
-    
-    console.log(container);
-
-    renderTasks(obj);
-  });
-
-  return editBtn;
-}
 
 submit.addEventListener('click', (e) => {
   e.preventDefault();
