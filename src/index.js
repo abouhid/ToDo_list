@@ -49,6 +49,7 @@ const renderTasks = (obj) => {
     const showBtn = addShowDetailsBtn(detailsContainer);
     const deleteTaskBtn = addDeleteTaskBtn(obj, i);
     const checkbox = addCheckbox(obj, i);
+    const editBtn = addEditTaskBtn(obj, i, taskContainer);
 
     const addContent= (() => {
       title.textContent = obj.list[i].title;
@@ -65,6 +66,7 @@ const renderTasks = (obj) => {
       taskContainer.appendChild(title);
       taskContainer.appendChild(showBtn);
       taskContainer.appendChild(deleteTaskBtn);
+      taskContainer.appendChild(editBtn);
       detailsContainer.appendChild(desc);
       detailsContainer.appendChild(priority);
       detailsContainer.appendChild(date);
@@ -138,6 +140,77 @@ const addCheckbox = (obj, i) => {
 
 }
 
+const addEditTaskForm = (obj, i) => {
+  const form = document.createElement('form');
+  const taskTitleInput = document.createElement('input');
+  const taskDescInput = document.createElement('input');
+  const taskDateInput = document.createElement("input");
+  const taskPriorityInput = document.createElement("select");
+  const submit = document.createElement("input");
+
+  taskTitleInput.type = "text";
+  taskDescInput.type = "text";
+  taskDateInput.type = "date";
+  submit.type = "submit";
+
+  const priorityOptionHigh = document.createElement("option")
+  const priorityOptionMedium = document.createElement("option")
+  const priorityOptionLow = document.createElement("option")
+  
+  priorityOptionHigh.value = "high";
+  priorityOptionMedium.value = "medium";
+  priorityOptionLow.value = "low";
+
+  priorityOptionHigh.textContent = "High";
+  priorityOptionMedium.textContent = "Medium";
+  priorityOptionLow.textContent = "Low";
+
+  taskTitleInput.value = obj.list[i].title;
+  taskDescInput.value = obj.list[i].desc;
+  taskDateInput.value = obj.list[i].dueDate;
+  taskPriorityInput.value = obj.list[i].priority;
+
+  taskPriorityInput.appendChild(priorityOptionHigh);
+  taskPriorityInput.appendChild(priorityOptionMedium);
+  taskPriorityInput.appendChild(priorityOptionLow);
+
+  form.appendChild(taskTitleInput);
+  form.appendChild(taskDescInput);
+  form.appendChild(taskDateInput);
+  form.appendChild(taskPriorityInput);
+  form.appendChild(submit);
+
+  submit.addEventListener("click", (e) => {
+    e.preventDefault();
+    obj.list[i].title = taskTitleInput.value;
+    obj.list[i].desc = taskDescInput.value;
+    obj.list[i].dueDate = taskDateInput.value;
+    obj.list[i].priority = taskPriorityInput.value;
+    // form.style.display = "none";
+  });
+
+  return form;
+}
+
+const addEditTaskBtn = (obj, i, container) => {
+  const editBtn = document.createElement("button");
+
+  editBtn.textContent = "Edit";
+
+  editBtn.addEventListener("click", () => {
+    const form = addEditTaskForm(obj, i);
+
+    container.appendChild(form);
+    console.log(form);
+    
+    console.log(container);
+
+    renderTasks(obj);
+  });
+
+  return editBtn;
+}
+
 submit.addEventListener('click', (e) => {
   e.preventDefault();
   let active = document.querySelector('.active').innerText;
@@ -154,24 +227,24 @@ const renderLists = (projectsList) => {
   for (let i = 0; i < projectsList.length; i += 1) {
 
     const title = document.createElement('h3');
-    const deleteTaskBtn = addDeleteListBtn(projectsList, i);
+    const deleteListBtn = addDeleteListBtn(projectsList, i);
 
-    title.textContent = projectsList[i].title;
-    projectsListContainer.appendChild(title);
-    projectsListContainer.appendChild(deleteTaskBtn);
+    const appendElements = (() => {
+      title.textContent = projectsList[i].title;
+      projectsListContainer.appendChild(title);
+      projectsListContainer.appendChild(deleteListBtn);
 
+      if (projectsList[0] && i === 0) {
+        title.classList.add('active')
+      };
 
-
-    if (projectsList[0] && i === 0) {
-      title.classList.add('active')
-    };
-
-    title.addEventListener('click', (e) => {
-      e.preventDefault();
-      document.querySelector('.active').classList.remove('active');
-      title.classList.add('active')
-      renderTasks(projectsList[i]);
-    });
+      title.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.querySelector('.active').classList.remove('active');
+        title.classList.add('active')
+        renderTasks(projectsList[i]);
+      });
+    })();
   }
 }
 
