@@ -20,3 +20,7 @@ body {
 .active {
     color: red;
 }
+
+.done-list {
+    background-color: yellowgreen;
+}

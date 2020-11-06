@@ -22,3 +22,5 @@ checklist
 option to edit the item (press naming to edit)
 validations of inputs
 append multiple values at once
+
+method to clean instead of while loop

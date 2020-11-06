@@ -1,4 +1,7 @@
-import { toDoList, task } from './tabs/todo'
+import {
+  toDoList,
+  task
+} from './tabs/todo'
 
 const submit = document.getElementById('submit');
 const sidebar_submit = document.getElementById('sidebar-submit');
@@ -7,8 +10,10 @@ const sidebar = document.querySelector('sidebar')
 const tasksList = document.querySelector('.tasks-list')
 const projectsListContainer = document.querySelector('.project-names')
 const form = document.getElementById("book-form");
-const sidebar_form = document.getElementById("sidebar-form");
+const sidebarForm = document.getElementById("sidebar-form");
 const projectsList = []
+const doneList = document.querySelector('.done-list');
+
 
 const defaultTasks = () => {
   const dtask1 = task('The Winds of Winter', 'desc1', '2020-12-12', 'high', true);
@@ -18,8 +23,8 @@ const defaultTasks = () => {
   const dTodoList1 = toDoList('A Song of Ice and Fire');
   const dTodoList2 = toDoList('The Lord of the Rings');
   const dtask5 = task('The Two Towers', 'desc1', '2020-12-12', 'high');
-  
-  
+
+
   dTodoList1.list.push(dtask1, dtask2, dtask3, dtask4);
   dTodoList2.list.push(dtask5);
 
@@ -31,7 +36,9 @@ const renderTasks = (obj) => {
   while (tasksList.firstChild) {
     tasksList.removeChild(tasksList.firstChild);
   }
-
+  while (doneList.firstChild) {
+    doneList.removeChild(doneList.firstChild);
+  }
   for (let i = 0; i < obj.list.length; i += 1) {
     const taskContainer = document.createElement('div');
     const title = document.createElement('h3');
@@ -40,31 +47,40 @@ const renderTasks = (obj) => {
     const date = document.createElement("p");
     const priority = document.createElement("p");
     const showBtn = addShowDetailsBtn(detailsContainer);
-    const deleteTaskBtn = addDeleteTaskBtn(obj,i);
-    const checkbox = addCheckbox(obj,i);
-    const checkboxText = document.createElement('p')
-    checkboxText.textContent = obj.list[i].status;
+    const deleteTaskBtn = addDeleteTaskBtn(obj, i);
+    const checkbox = addCheckbox(obj, i);
 
+    const addContent= (() => {
+      title.textContent = obj.list[i].title;
+      desc.textContent = obj.list[i].desc;
+      date.textContent = obj.list[i].dueDate;
+      priority.textContent = obj.list[i].priority;
+    })()
 
-    title.textContent = obj.list[i].title;
-    desc.textContent = obj.list[i].desc;
-    date.textContent = obj.list[i].dueDate;
-    priority.textContent = obj.list[i].priority;
-    
+    const appendElements = (() => {
 
-    detailsContainer.style.display = "none";
+      detailsContainer.style.display = "none";
 
-    taskContainer.appendChild(checkbox);
-    taskContainer.appendChild(checkboxText);
-    taskContainer.appendChild(title);
-    taskContainer.appendChild(showBtn);
-    taskContainer.appendChild(deleteTaskBtn);
-    detailsContainer.appendChild(desc);
-    detailsContainer.appendChild(priority);
-    detailsContainer.appendChild(date);
-    taskContainer.appendChild(detailsContainer);
+      taskContainer.appendChild(checkbox);
+      taskContainer.appendChild(title);
+      taskContainer.appendChild(showBtn);
+      taskContainer.appendChild(deleteTaskBtn);
+      detailsContainer.appendChild(desc);
+      detailsContainer.appendChild(priority);
+      detailsContainer.appendChild(date);
+      taskContainer.appendChild(detailsContainer);
+      appendDone(obj,i,taskContainer,doneList,tasksList)
+    })()
+  }
+}
+
+const appendDone =(obj,i,taskContainer,doneList,tasksList) => {
+  if (obj.list[i].status){
+    doneList.appendChild(taskContainer);
+  } else {
     tasksList.appendChild(taskContainer);
   }
+
 }
 
 const addNewTask = (obj) => {
@@ -72,7 +88,7 @@ const addNewTask = (obj) => {
   const taskDescInput = document.getElementById("task-desc-input").value;
   const taskDateInput = document.getElementById("task-date-input").value;
   const taskPriorityInput = document.getElementById("task-priority-input").value;
-  
+
   const newTask = task(taskTitleInput, taskDescInput, taskDateInput, taskPriorityInput);
   form.reset();
   obj.list.unshift(newTask);
@@ -91,13 +107,13 @@ const addShowDetailsBtn = (container) => {
   return chevron;
 }
 
-const addDeleteTaskBtn = (obj,i) => {
+const addDeleteTaskBtn = (obj, i) => {
   const deleteBtn = document.createElement('button');
 
   deleteBtn.textContent = 'Delete';
 
   deleteBtn.addEventListener('click', () => {
- 
+
     obj.list.splice(i, 1);
     renderTasks(obj);
     // saveLocalStorage();
@@ -107,7 +123,7 @@ const addDeleteTaskBtn = (obj,i) => {
 
 }
 
-const addCheckbox = (obj,i) => {
+const addCheckbox = (obj, i) => {
   const checkbox = document.createElement('input');
   checkbox.type = 'checkbox';
   checkbox.checked = obj.list[i].status;
@@ -138,15 +154,15 @@ const renderLists = (projectsList) => {
   for (let i = 0; i < projectsList.length; i += 1) {
 
     const title = document.createElement('h3');
-    const deleteTaskBtn = addDeleteListBtn(projectsList,i);
+    const deleteTaskBtn = addDeleteListBtn(projectsList, i);
 
     title.textContent = projectsList[i].title;
     projectsListContainer.appendChild(title);
     projectsListContainer.appendChild(deleteTaskBtn);
 
-    
 
-    if (projectsList[0] && i===0) {
+
+    if (projectsList[0] && i === 0) {
       title.classList.add('active')
     };
 
@@ -159,13 +175,13 @@ const renderLists = (projectsList) => {
   }
 }
 
-const addDeleteListBtn = (projectsList,i) => {
+const addDeleteListBtn = (projectsList, i) => {
   const deleteBtn = document.createElement('button');
 
   deleteBtn.textContent = 'Delete';
 
   deleteBtn.addEventListener('click', () => {
- 
+
     projectsList.splice(i, 1);
     renderLists(projectsList);
 
@@ -180,7 +196,7 @@ const addDeleteListBtn = (projectsList,i) => {
 const addNewList = (obj) => {
   const newListInput = document.getElementById("sidebar-input").value;
   const newList = toDoList(newListInput);
-  sidebar_form.reset();
+  sidebarForm.reset();
   obj.unshift(newList);
 };
 
