@@ -100,6 +100,8 @@ const addDeleteTaskBtn = (obj,i) => {
 
 }
 
+
+
 submit.addEventListener('click', (e) => {
   e.preventDefault();
   let active = document.querySelector('.active').innerText;
@@ -115,10 +117,14 @@ const renderLists = (projectsList) => {
 
   for (let i = 0; i < projectsList.length; i += 1) {
 
-
     const title = document.createElement('h3');
+    const deleteTaskBtn = addDeleteListBtn(projectsList,i);
+
     title.textContent = projectsList[i].title;
     projectsListContainer.appendChild(title);
+    projectsListContainer.appendChild(deleteTaskBtn);
+
+    
 
     if (projectsList[0] && i===0) {
       title.classList.add('active')
@@ -132,7 +138,23 @@ const renderLists = (projectsList) => {
     });
   }
 }
+const addDeleteListBtn = (projectsList,i) => {
+  const deleteBtn = document.createElement('button');
 
+  deleteBtn.textContent = 'Delete';
+
+  deleteBtn.addEventListener('click', () => {
+ 
+    projectsList.splice(i, 1);
+    renderLists(projectsList);
+
+    renderTasks(projectsList[0])
+    // saveLocalStorage();
+  });
+
+  return deleteBtn;
+
+}
 const addNewList = (obj) => {
   const newListInput = document.getElementById("sidebar-input").value;
   const newList = toDoList(newListInput);
