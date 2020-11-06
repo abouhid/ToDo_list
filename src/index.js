@@ -41,6 +41,8 @@ const renderTasks = (obj) => {
     const priority = document.createElement("p");
     const showBtn = addShowDetailsBtn(detailsContainer);
     const deleteTaskBtn = addDeleteTaskBtn(obj,i);
+    const checkbox = addCheckbox(obj,i);
+
 
     title.textContent = obj.list[i].title;
     desc.textContent = obj.list[i].desc;
@@ -49,6 +51,7 @@ const renderTasks = (obj) => {
 
     detailsContainer.style.display = "none";
 
+    taskContainer.appendChild(checkbox);
     taskContainer.appendChild(title);
     taskContainer.appendChild(showBtn);
     taskContainer.appendChild(deleteTaskBtn);
@@ -100,7 +103,29 @@ const addDeleteTaskBtn = (obj,i) => {
 
 }
 
+const addCheckbox = (obj,i) => {
+  const checkbox = document.createElement('input');
+  checkbox.type = 'checkbox';
+  checkbox.checked = obj.list[i].status
 
+  checkbox.addEventListener('change', () => {
+ 
+    if (checkbox.checked){
+      console.log(checkbox.checked)
+      obj.list[i].status = false;
+      checkbox.checked =obj.list[i].status
+    } else {
+      console.log(checkbox.checked)
+      obj.list[i].status = true;
+      checkbox.checked =obj.list[i].status
+    }
+    // saveLocalStorage();
+    renderTasks(obj)
+  });
+
+  return checkbox
+
+}
 
 submit.addEventListener('click', (e) => {
   e.preventDefault();
@@ -138,6 +163,7 @@ const renderLists = (projectsList) => {
     });
   }
 }
+
 const addDeleteListBtn = (projectsList,i) => {
   const deleteBtn = document.createElement('button');
 
@@ -155,6 +181,7 @@ const addDeleteListBtn = (projectsList,i) => {
   return deleteBtn;
 
 }
+
 const addNewList = (obj) => {
   const newListInput = document.getElementById("sidebar-input").value;
   const newList = toDoList(newListInput);
