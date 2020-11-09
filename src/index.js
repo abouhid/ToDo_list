@@ -6,7 +6,9 @@ import {
 const submit = document.getElementById('submit');
 const sidebar_submit = document.getElementById('sidebar-submit');
 const main = document.querySelector('main')
-const sidebar = document.querySelector('sidebar')
+const sidebar = document.querySelector('.sidebar')
+const advButton = document.querySelector('.advButton')
+const advOptions = document.querySelector('.advanced-options')
 const tasksList = document.querySelector('.tasks-list')
 const projectsListContainer = document.querySelector('.project-names')
 const form = document.getElementById("task-form");
@@ -209,11 +211,9 @@ const addCheckbox = (obj, i) => {
 
 }
 
-
-
 submit.addEventListener('click', (e) => {
   e.preventDefault();
-  let active = document.querySelector('.active').innerText;
+  let active = document.querySelector('.active').firstChild.innerText;
   let current_project = projectsList.filter(obj => obj.title === active)[0];
   addNewTask(current_project);
   renderTasks(current_project);
@@ -281,6 +281,12 @@ sidebar_submit.addEventListener('click', (e) => {
   addNewList(projectsList);
   renderLists(projectsList);
 });
+
+  advButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (advOptions.style.display === "block") advOptions.style.display = "none";
+    else advOptions.style.display = "block";
+  });
 
 
 defaultTasks();

@@ -12,6 +12,8 @@ body {
     display: flex;
     flex-direction: column;
     background-color: #EC4E20;
+    padding: 2%;
+    width: 100%;
 }
 
 .sidebar {
@@ -20,6 +22,7 @@ body {
     color:white;
     background-color: #353531;
     min-height: 100vh;
+    min-width: 25%;
 }
 
 .sidebar img {
@@ -42,6 +45,25 @@ body {
 
 .task-form {
     display: none;
+}
+
+.adv-input {
+    display: inline;
+}
+
+.advanced-options {
+    display: none;
+}
+
+.tasks-list {
+    border-radius: 5px;
+    padding: 2%;
+}
+.tasks-list > div{
+    background-color: white;
+    border-radius: 5px;
+    padding: 2%;
+    margin-bottom: 2%;
 }
 
 .done-list {
