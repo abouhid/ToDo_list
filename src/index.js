@@ -68,7 +68,7 @@ const renderTasks = (obj,editForm=null,editNum=null) => {
     const appendElements = (() => {
 
       detailsContainer.style.display = "none";
-      detailsContainer.classList.add('details-container');
+      detailsContainer.classList.add('details-container','mt-3');
 
       mainInfoContainer.appendChild(checkbox);
       mainInfoContainer.appendChild(title);
@@ -97,18 +97,21 @@ const addEditTaskForm = (obj, i) => {
   const extraInputs = document.createElement('div')
   const taskDateInput = document.createElement("input");
   const taskPriorityInput = document.createElement("select");
+  const cancel = document.createElement("input");
   const submit = document.createElement("input");
 
   taskTitleInput.classList.add('form-control', 'mb-2');
   taskDescInput.classList.add('form-control', 'mb-2');
   taskDateInput.classList.add('form-control', 'mr-2');
   taskPriorityInput.classList.add('custom-select', 'custom-select-sm');
-  submit.classList.add('btn', 'btn-secondary', 'button', 'ml-5')
+  cancel.classList.add('btn', 'btn-secondary', 'button', 'ml-3')
+  submit.classList.add('btn', 'btn-secondary', 'button', 'ml-3')
   extraInputs.classList.add('extra-inputs')
 
   taskTitleInput.type = "text";
   taskDescInput.type = "text";
   taskDateInput.type = "date";
+  cancel.type = "submit";
   submit.type = "submit";
 
   const priorityOptionHigh = document.createElement("option")
@@ -122,6 +125,7 @@ const addEditTaskForm = (obj, i) => {
   priorityOptionHigh.textContent = "High";
   priorityOptionMedium.textContent = "Medium";
   priorityOptionLow.textContent = "Low";
+  cancel.value="Cancel"
 
   taskTitleInput.value = obj.list[i].title;
   taskDescInput.value = obj.list[i].desc;
@@ -136,6 +140,7 @@ const addEditTaskForm = (obj, i) => {
   editForm.appendChild(taskDescInput);
   extraInputs.appendChild(taskDateInput);
   extraInputs.appendChild(taskPriorityInput);
+  extraInputs.appendChild(cancel);
   extraInputs.appendChild(submit);
   editForm.appendChild(extraInputs);
 
@@ -158,8 +163,6 @@ const addEditTaskBtn = (obj, i, container) => {
 
   editBtn.addEventListener("click", () => {
     const editForm = addEditTaskForm(obj, i);
-    const numEdit =i
-    // container.appendChild(editForm);
      renderTasks(obj,editForm,i);
   });
 
