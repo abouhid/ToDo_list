@@ -146,6 +146,7 @@ const addEditTaskForm = (obj, i) => {
 
   submit.addEventListener("click", (e) => {
     e.preventDefault();
+    newTaskValidation(taskTitleInput,taskDescInput,taskDateInput,taskPriorityInput);
     obj.list[i].title = taskTitleInput.value;
     obj.list[i].desc = taskDescInput.value;
     obj.list[i].dueDate = taskDateInput.value;
@@ -154,6 +155,14 @@ const addEditTaskForm = (obj, i) => {
   });
 
   return editForm;
+}
+
+const newTaskValidation = (title,desc,date,priority) => {
+  if (title == "") {
+    modal("Name must be filled out");
+    return false;
+  }
+
 }
 
 const addEditTaskBtn = (obj, i, container) => {
