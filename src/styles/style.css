@@ -1,15 +1,17 @@
 body {
-    /* padding: 10px */
-}
-
-.right-panel {
-    display: flex;
+    /* padding: 10px
+    #353531
+    #EC4E20
+    #FF9505
+    #016FB9
+    #000000
+    */
 }
 
 .nav-panel{
     display: flex;
     flex-direction: column;
-    
+    background-color: #EC4E20;
 }
 
 .sidebar {
@@ -18,6 +20,12 @@ body {
     color:white;
     background-color: #353531;
     min-height: 100vh;
+}
+
+.sidebar img {
+    width: 70px;
+    margin: 0 auto;
+    display: flex;
 }
 
 .list-cont {
