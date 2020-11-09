@@ -17,15 +17,16 @@ const form = document.getElementById("task-form");
 const sidebarForm = document.getElementById("sidebar-form");
 const projectsList = []
 const doneList = document.querySelector('.done-list');
+const modalMessage = document.createElement('p')
 
 const defaultTasks = () => {
-  const dtask1 = task('The Winds of Winter', 'desc1', '2020-12-12', 'high', true);
-  const dtask2 = task('A Dream of Spring', 'desc1', '2020-12-12', 'high');
-  const dtask3 = task('A Clash of Kings', 'desc1', '2020-12-12', 'high');
-  const dtask4 = task('A Game of Thrones', 'desc1', '2020-12-12', 'high');
+  const dtask1 = task('The Winds of Winter', 'desc1', '2020-12-12', 'H', true);
+  const dtask2 = task('A Dream of Spring', 'desc1', '2020-12-12', 'H');
+  const dtask3 = task('A Clash of Kings', 'desc1', '2020-12-12', 'M');
+  const dtask4 = task('A Game of Thrones', 'desc1', '2020-12-12', 'L');
   const dTodoList1 = toDoList('A Song of Ice and Fire');
   const dTodoList2 = toDoList('The Lord of the Rings');
-  const dtask5 = task('The Two Towers', 'desc1', '2020-12-12', 'high');
+  const dtask5 = task('The Two Towers', 'desc1', '2020-12-12', 'M');
 
 
   dTodoList1.list.push(dtask1, dtask2, dtask3, dtask4);
@@ -35,7 +36,7 @@ const defaultTasks = () => {
   projectsList.push(dTodoList2);
 };
 
-const renderTasks = (obj,editForm=null,editNum=null) => {
+const renderTasks = (obj, editForm = null, editNum = null) => {
   while (tasksList.firstChild) {
     tasksList.removeChild(tasksList.firstChild);
   }
@@ -57,7 +58,7 @@ const renderTasks = (obj,editForm=null,editNum=null) => {
     const checkbox = addCheckbox(obj, i);
     const editBtn = addEditTaskBtn(obj, i, taskContainer);
 
-    const addContent= (() => {
+    const addContent = (() => {
       title.textContent = obj.list[i].title;
       desc.textContent = obj.list[i].desc;
       date.textContent = obj.list[i].dueDate;
@@ -70,7 +71,7 @@ const renderTasks = (obj,editForm=null,editNum=null) => {
     const appendElements = (() => {
 
       detailsContainer.style.display = "none";
-      detailsContainer.classList.add('details-container','mt-3');
+      detailsContainer.classList.add('details-container', 'mt-3');
 
       mainInfoContainer.appendChild(checkbox);
       mainInfoContainer.appendChild(title);
@@ -82,15 +83,65 @@ const renderTasks = (obj,editForm=null,editNum=null) => {
 
       taskContainer.appendChild(mainInfoContainer);
       taskContainer.appendChild(additionalInfoContainer);
-      
-      if (i===editNum) { taskContainer.appendChild(editForm)};  
-      
+
+      if (i === editNum) {
+        taskContainer.appendChild(editForm)
+      };
+
       detailsContainer.appendChild(desc);
       taskContainer.appendChild(detailsContainer);
-      appendDone(obj,i,taskContainer,doneList,tasksList)
+      appendDone(obj, i, taskContainer, doneList, tasksList)
     })()
   }
 }
+
+const addNewTask = (obj) => {
+  const taskTitleInput = document.querySelector("#task-input").value;
+  const taskDescInput = document.getElementById("task-desc-input").value;
+  const taskDateInput = document.getElementById("task-date-input").value;
+  const taskPriorityInput = document.getElementById("task-priority-input").value;
+  if (newTaskValidation(modal, taskTitleInput, taskDescInput, taskDateInput, taskPriorityInput)) {
+    const newTask = task(taskTitleInput, taskDescInput, taskDateInput, taskPriorityInput);
+    form.reset();
+    obj.list.unshift(newTask);
+  }
+};
+
+const openModal = (modal, content) => {
+  const exitModal = document.querySelector('.exit-modal')
+  modal.style.display = "block";
+  modalMessage.textContent = content;
+  modalContent.appendChild(modalMessage);
+  modalContent.appendChild(exitModal)
+
+  exitModal.addEventListener('click', () => {
+    modal.style.display = "none";
+  });
+}
+
+submit.addEventListener('click', (e) => {
+  e.preventDefault();
+  let active = document.querySelector('.active').firstChild.innerText;
+  let current_project = projectsList.filter(obj => obj.title === active)[0];
+  addNewTask(current_project);
+  renderTasks(current_project);
+});
+
+const newTaskValidation = (modal, title, desc, date, priority) => {
+  if (title === "") {
+    openModal(modal, 'Task title must exist!');
+    return false;
+  } else {
+    return true;
+  }
+}
+
+document.addEventListener('keydown', function (e) {
+  let keyCode = e.keyCode;
+  if (keyCode === 27) {
+    modal.style.display = "none";
+  }
+});
 
 const addEditTaskForm = (obj, i) => {
   const editForm = document.createElement('form');
@@ -108,6 +159,7 @@ const addEditTaskForm = (obj, i) => {
   taskPriorityInput.classList.add('custom-select', 'custom-select-sm');
   cancel.classList.add('btn', 'btn-secondary', 'button', 'ml-3')
   submit.classList.add('btn', 'btn-secondary', 'button', 'ml-3')
+  
   extraInputs.classList.add('extra-inputs')
 
   taskTitleInput.type = "text";
@@ -119,15 +171,15 @@ const addEditTaskForm = (obj, i) => {
   const priorityOptionHigh = document.createElement("option")
   const priorityOptionMedium = document.createElement("option")
   const priorityOptionLow = document.createElement("option")
-  
-  priorityOptionHigh.value = "high";
-  priorityOptionMedium.value = "medium";
-  priorityOptionLow.value = "low";
+
+  priorityOptionHigh.value = "H";
+  priorityOptionMedium.value = "M";
+  priorityOptionLow.value = "L";
 
   priorityOptionHigh.textContent = "High";
   priorityOptionMedium.textContent = "Medium";
   priorityOptionLow.textContent = "Low";
-  cancel.value="Cancel"
+  cancel.value = "Cancel"
 
   taskTitleInput.value = obj.list[i].title;
   taskDescInput.value = obj.list[i].desc;
@@ -159,61 +211,27 @@ const addEditTaskForm = (obj, i) => {
 
   return editForm;
 }
-
-const openModal = (modal, content = '') => {
-  modal.style.display = "block"; 
-  console.log(modal)
-}
-
-const newTaskValidation = (modal, title,desc,date,priority) => {
-  if (title === "") {
-    console.log(modal)
-    console.log('modal')
-    openModal(modal);
-    return false;
-  } else {
-    console.log('modal')
-    console.log(modal)
-    return true;
-  }
-}
-
 const addEditTaskBtn = (obj, i, container) => {
   const editBtn = document.createElement("span");
-  
+
   editBtn.innerHTML = "<i class='fas fa-edit'></i>";
 
   editBtn.addEventListener("click", () => {
     const editForm = addEditTaskForm(obj, i);
-     renderTasks(obj,editForm,i);
+    renderTasks(obj, editForm, i);
   });
 
   return editBtn;
 }
 
-const appendDone =(obj,i,taskContainer,doneList,tasksList) => {
-  if (obj.list[i].status){
+const appendDone = (obj, i, taskContainer, doneList, tasksList) => {
+  if (obj.list[i].status) {
     doneList.appendChild(taskContainer);
   } else {
     tasksList.appendChild(taskContainer);
   }
 
 }
-
-const addNewTask = (obj) => {
-  const taskTitleInput = document.getElementById("task-input").value;
-  const taskDescInput = document.getElementById("task-desc-input").value;
-  const taskDateInput = document.getElementById("task-date-input").value;
-  const taskPriorityInput = document.getElementById("task-priority-input").value;
-  if (newTaskValidation(modal, taskTitleInput.value, taskDescInput.value, taskDateInput.value, taskPriorityInput.value)) {
-    const newTask = task(taskTitleInput, taskDescInput, taskDateInput, taskPriorityInput);
-    form.reset();
-    obj.list.unshift(newTask);
-    console.log('asd')
-  }
-  console.log('asdaaad')
-  
-};
 
 const addShowDetailsBtn = (container) => {
   const chevron = document.createElement('span');
@@ -258,14 +276,6 @@ const addCheckbox = (obj, i) => {
   return checkbox
 
 }
-
-// submit.addEventListener('click', (e) => {
-//   e.preventDefault();
-//   let active = document.querySelector('.active').firstChild.innerText;
-//   let current_project = projectsList.filter(obj => obj.title === active)[0];
-//   addNewTask(current_project);
-//   renderTasks(current_project);
-// });
 
 const renderLists = (projectsList) => {
   while (projectsListContainer.firstChild) {
@@ -333,10 +343,10 @@ sidebar_submit.addEventListener('click', (e) => {
 
 advButton.addEventListener('click', (e) => {
   // e.preventDefault();
-  if (advOptions.style.display === "block") { 
+  if (advOptions.style.display === "block") {
     advOptions.style.display = "none";
     advButton.innerText = "Advanced Options";
-  } else { 
+  } else {
     advOptions.style.display = "block";
     advButton.textContent = "Hide Options";
   }
