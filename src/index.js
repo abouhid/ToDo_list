@@ -42,6 +42,9 @@ const renderTasks = (obj,editForm=null,editNum=null) => {
   }
   for (let i = 0; i < obj.list.length; i += 1) {
     const taskContainer = document.createElement('div');
+    taskContainer.classList.add('task-container')
+    const mainInfoContainer = document.createElement('div')
+    const additionalInfoContainer = document.createElement('div');
     const title = document.createElement('h3');
     const detailsContainer = document.createElement("div");
     const desc = document.createElement("p");
@@ -57,23 +60,30 @@ const renderTasks = (obj,editForm=null,editNum=null) => {
       desc.textContent = obj.list[i].desc;
       date.textContent = obj.list[i].dueDate;
       priority.textContent = obj.list[i].priority;
+      mainInfoContainer.classList.add('main-info');
+      additionalInfoContainer.classList.add('additional-info');
+      checkbox.classList.add('mr-3');
     })()
 
     const appendElements = (() => {
 
       detailsContainer.style.display = "none";
+      detailsContainer.classList.add('details-container');
 
-      taskContainer.appendChild(checkbox);
-      taskContainer.appendChild(title);
-      taskContainer.appendChild(date);
+      mainInfoContainer.appendChild(checkbox);
+      mainInfoContainer.appendChild(title);
+      additionalInfoContainer.appendChild(date);
+      additionalInfoContainer.appendChild(priority);
+      additionalInfoContainer.appendChild(showBtn);
+      additionalInfoContainer.appendChild(deleteTaskBtn);
+      additionalInfoContainer.appendChild(editBtn);
 
-      taskContainer.appendChild(showBtn);
-      taskContainer.appendChild(deleteTaskBtn);
-      taskContainer.appendChild(editBtn);
+      taskContainer.appendChild(mainInfoContainer);
+      taskContainer.appendChild(additionalInfoContainer);
+      
       if (i===editNum) { taskContainer.appendChild(editForm)};  
       
       detailsContainer.appendChild(desc);
-      detailsContainer.appendChild(priority);
       taskContainer.appendChild(detailsContainer);
       appendDone(obj,i,taskContainer,doneList,tasksList)
     })()
@@ -84,9 +94,17 @@ const addEditTaskForm = (obj, i) => {
   const editForm = document.createElement('form');
   const taskTitleInput = document.createElement('input');
   const taskDescInput = document.createElement('input');
+  const extraInputs = document.createElement('div')
   const taskDateInput = document.createElement("input");
   const taskPriorityInput = document.createElement("select");
   const submit = document.createElement("input");
+
+  taskTitleInput.classList.add('form-control', 'mb-2');
+  taskDescInput.classList.add('form-control', 'mb-2');
+  taskDateInput.classList.add('form-control', 'mr-2');
+  taskPriorityInput.classList.add('custom-select', 'custom-select-sm');
+  submit.classList.add('btn', 'btn-secondary', 'button', 'ml-5')
+  extraInputs.classList.add('extra-inputs')
 
   taskTitleInput.type = "text";
   taskDescInput.type = "text";
@@ -116,9 +134,10 @@ const addEditTaskForm = (obj, i) => {
 
   editForm.appendChild(taskTitleInput);
   editForm.appendChild(taskDescInput);
-  editForm.appendChild(taskDateInput);
-  editForm.appendChild(taskPriorityInput);
-  editForm.appendChild(submit);
+  extraInputs.appendChild(taskDateInput);
+  extraInputs.appendChild(taskPriorityInput);
+  extraInputs.appendChild(submit);
+  editForm.appendChild(extraInputs);
 
   submit.addEventListener("click", (e) => {
     e.preventDefault();
@@ -133,9 +152,9 @@ const addEditTaskForm = (obj, i) => {
 }
 
 const addEditTaskBtn = (obj, i, container) => {
-  const editBtn = document.createElement("button");
+  const editBtn = document.createElement("span");
   
-  editBtn.textContent = "Edit";
+  editBtn.innerHTML = "<i class='fas fa-edit'></i>";
 
   editBtn.addEventListener("click", () => {
     const editForm = addEditTaskForm(obj, i);
@@ -169,7 +188,7 @@ const addNewTask = (obj) => {
 
 const addShowDetailsBtn = (container) => {
   const chevron = document.createElement('span');
-  chevron.textContent = "⌄";
+  chevron.innerHTML = '<i class="fas fa-chevron-down"></i>';
 
   chevron.addEventListener("click", (e) => {
     e.preventDefault();
@@ -181,9 +200,9 @@ const addShowDetailsBtn = (container) => {
 }
 
 const addDeleteTaskBtn = (obj, i) => {
-  const deleteBtn = document.createElement('button');
+  const deleteBtn = document.createElement('span');
 
-  deleteBtn.textContent = 'Delete';
+  deleteBtn.innerHTML = "<i class='fas fa-trash-alt'></i>";
 
   deleteBtn.addEventListener('click', () => {
 
@@ -254,7 +273,7 @@ const renderLists = (projectsList) => {
 const addDeleteListBtn = (projectsList, i) => {
   const deleteBtn = document.createElement('span');
 
-  deleteBtn.textContent = 'x';
+  deleteBtn.innerHTML = "<i class='fas fa-trash-alt'></i>";
 
   deleteBtn.addEventListener('click', () => {
 
@@ -282,11 +301,16 @@ sidebar_submit.addEventListener('click', (e) => {
   renderLists(projectsList);
 });
 
-  advButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    if (advOptions.style.display === "block") advOptions.style.display = "none";
-    else advOptions.style.display = "block";
-  });
+advButton.addEventListener('click', (e) => {
+  // e.preventDefault();
+  if (advOptions.style.display === "block") { 
+    advOptions.style.display = "none";
+    advButton.innerText = "Advanced Options";
+  } else { 
+    advOptions.style.display = "block";
+    advButton.textContent = "Hide Options";
+  }
+});
 
 
 defaultTasks();

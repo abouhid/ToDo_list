@@ -15,6 +15,8 @@
       integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+      integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <link rel="stylesheet" href="../src/styles/reset.css" />
     <link rel="stylesheet" href="../src/styles/style.css" />
     <title>To-Do List</title>
@@ -23,8 +25,7 @@
     <div class="d-flex">
       <div class="sidebar">
       <img src="../src/images/logo1.png">
- 
-       
+
         <form action="" id="sidebar-form" class="mt-4">
           <input
             class="form-control mb-3"
@@ -43,9 +44,8 @@
         <div class="project-names mt-2"></div>
       </div>
       <div class="nav-panel">
-        <nav></nav>
         <main>
-          <form action="" id="task-form" class="mt-4">
+          <form action="" id="task-form">
             <div class="adv-input">
             <input
               class="form-control mb-3"
@@ -53,33 +53,34 @@
               id="task-input"
               placeholder="Add a task title"
             />
-            <span class="advButton btn btn-secondary">Advanced Options</span>
           </div>
-            <div class="advanced-options">
+          <div class="advanced-options">
             <input
-              class="form-control mb-3"
-              type="text"
-              id="task-desc-input"
-              placeholder="Add a task description"
+            class="form-control mb-3"
+            type="text"
+            id="task-desc-input"
+            placeholder="Add a task description"
             />
-            <input
+            <div class="date-and-priority">
+              <input
               class="form-control mb-3"
               type="date"
               id="task-date-input"
-              placeholder="Add a task description"
-            />
-            <select name="priorities" id="task-priority-input" class="custom-select custom-select-lg mb-3">
-              <option selected>Choose priority</option>
-              <option value="high">High</option>
-              <option value="medium">Medium</option>
-              <option value="low">Low</option>
-            </select>
+              />
+              <select name="priorities" id="task-priority-input" class="custom-select custom-select-sm mb-3">
+                <option selected>Choose priority</option>
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+              </select>
+            </div>
           </div>
+            <span class="advButton btn btn-secondary button">Advanced Options</span>
             <input
               type="submit"
               value="Submit"
               id="submit"
-              class="btn btn-secondary"
+              class="btn btn-secondary button"
             />
           </form>
           <div class="tasks-list"></div>
