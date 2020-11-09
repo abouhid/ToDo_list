@@ -31,3 +31,6 @@ Monday plans:
 
 
 Priority background-colors
+
+Issues found:
+when created new list, the tasks are not rendering

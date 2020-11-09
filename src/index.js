@@ -226,22 +226,25 @@ const renderLists = (projectsList) => {
 
   for (let i = 0; i < projectsList.length; i += 1) {
 
+    const cont = document.createElement('div')
     const title = document.createElement('h3');
     const deleteListBtn = addDeleteListBtn(projectsList, i);
 
     const appendElements = (() => {
+      cont.classList.add('list-cont')
       title.textContent = projectsList[i].title;
-      projectsListContainer.appendChild(title);
-      projectsListContainer.appendChild(deleteListBtn);
+      cont.appendChild(title);
+      cont.appendChild(deleteListBtn);
+      projectsListContainer.appendChild(cont);
 
       if (projectsList[0] && i === 0) {
-        title.classList.add('active')
+        cont.classList.add('active')
       };
 
       title.addEventListener('click', (e) => {
         e.preventDefault();
         document.querySelector('.active').classList.remove('active');
-        title.classList.add('active')
+        cont.classList.add('active')
         renderTasks(projectsList[i]);
       });
     })();
@@ -249,9 +252,9 @@ const renderLists = (projectsList) => {
 }
 
 const addDeleteListBtn = (projectsList, i) => {
-  const deleteBtn = document.createElement('button');
+  const deleteBtn = document.createElement('span');
 
-  deleteBtn.textContent = 'Delete';
+  deleteBtn.textContent = 'x';
 
   deleteBtn.addEventListener('click', () => {
 
