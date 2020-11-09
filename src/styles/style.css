@@ -44,7 +44,13 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5%;
+  padding: 0 5%;
+  cursor: pointer;
+}
+
+.list-cont h3 {
+    width: 100%;
+    padding: 5%;
 }
 
 .active {
@@ -66,19 +72,21 @@ body {
   display: none;
 }
 
-.tasks-list {
+.tasks-list, .done-list {
   border-radius: 5px;
 }
 
-.tasks-list > div {
+.tasks-list > div, .done-list > div {
   background-color: #f8f8f8;
   border-radius: 5px;
   padding: 2%;
   margin-bottom: 2%;
 }
 
-.done-list {
-  background-color: yellowgreen;
+
+.done-list > div {
+    opacity: 0.7;
+    text-decoration: line-through;
 }
 
 .date-and-priority {

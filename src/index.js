@@ -302,6 +302,7 @@ sidebar_submit.addEventListener('click', (e) => {
   e.preventDefault();
   addNewList(projectsList);
   renderLists(projectsList);
+  renderTasks(projectsList[0]);
 });
 
 advButton.addEventListener('click', (e) => {
