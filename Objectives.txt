@@ -1,37 +1,9 @@
-MANDATORTY:
-- form to add a new task
-- form to add a new project
-- container with all tasks
-- container with all projects
-- task should have
-    - title
-    - description
-    - dueDate
-    - priority
-    - delete button
-    - done button
-- container with done tasks
-- right-sidebar for task info edit and view
-- localStorage
+- minimum responsiveness
+- append multiple values at once
+- method to clean instead of while loop
 - devide code into modules
-
-
-
-EXTRA:
-validations of inputs
-append multiple values at once
-method to clean instead of while loop
-
-
-Monday plans: 
-=>style 
---sidebar
---task-form
---taskList
-
-
-Priority background-colors
-
-Issues found:
-when created new list, the tasks are not rendering
-close edit form
+- localStorage
+- readme
+- linters
+- PR
+- DONE

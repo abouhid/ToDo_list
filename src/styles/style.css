@@ -137,14 +137,16 @@ body {
 .task-container .main-info,
 .task-container .additional-info {
   display: flex;
+  align-items: center;
 }
 
 .task-container .additional-info > * {
   margin-left: 12px;
 }
 
-.task-container input {
-  /* padding: 5px; */
+.check-task {
+  zoom: 1.8;
+  margin-top: 0;
 }
 
 .task-container form {

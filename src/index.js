@@ -3,6 +3,8 @@ import {
   task
 } from './tabs/todo'
 import { format, compareAsc } from 'date-fns'
+import differenceInDays from "date-fns/differenceInDays";
+import parseISO from "date-fns/parseISO";
 
 
 const submit = document.getElementById('submit');
@@ -63,12 +65,12 @@ const renderTasks = (obj, editForm = null, editNum = null) => {
     const addContent = (() => {
       title.textContent = obj.list[i].title;
       desc.textContent = obj.list[i].desc;
-      date.textContent = obj.list[i].dueDate;
+      date.textContent = formatDate(obj.list[i].dueDate);
       priority.textContent = obj.list[i].priority;
-      // priority.classList.add('');
+      priority.classList.add(stylesToPriority(priority), 'p-1', 'rounded');
       mainInfoContainer.classList.add('main-info');
       additionalInfoContainer.classList.add('additional-info');
-      checkbox.classList.add('mr-3');
+      checkbox.classList.add('mr-2');
     })()
 
     const appendElements = (() => {
@@ -78,11 +80,11 @@ const renderTasks = (obj, editForm = null, editNum = null) => {
 
       mainInfoContainer.appendChild(checkbox);
       mainInfoContainer.appendChild(title);
-      additionalInfoContainer.appendChild(date);
       additionalInfoContainer.appendChild(priority);
-      additionalInfoContainer.appendChild(showBtn);
+      additionalInfoContainer.appendChild(date);
       additionalInfoContainer.appendChild(deleteTaskBtn);
       additionalInfoContainer.appendChild(editBtn);
+      additionalInfoContainer.appendChild(showBtn);
 
       taskContainer.appendChild(mainInfoContainer);
       taskContainer.appendChild(additionalInfoContainer);
@@ -96,6 +98,21 @@ const renderTasks = (obj, editForm = null, editNum = null) => {
       appendDone(obj, i, taskContainer, doneList, tasksList)
     })()
   }
+}
+
+const stylesToPriority = (obj) => {
+  if (obj.textContent === "H") {
+    return "bg-danger"
+  } else if (obj.textContent === "M") {
+    return "bg-warning";
+  } else {
+    return "bg-success";
+  }
+}
+
+const formatDate = (date) => {
+  const difference = differenceInDays(new Date(date), new Date());
+  return `${difference} day(s) left`;
 }
 
 const addNewTask = (obj) => {
@@ -263,7 +280,6 @@ const addDeleteTaskBtn = (obj, i) => {
   deleteBtn.innerHTML = "<i class='fas fa-trash-alt'></i>";
 
   deleteBtn.addEventListener('click', () => {
-
     obj.list.splice(i, 1);
     renderTasks(obj);
     // saveLocalStorage();
@@ -275,6 +291,7 @@ const addDeleteTaskBtn = (obj, i) => {
 
 const addCheckbox = (obj, i) => {
   const checkbox = document.createElement('input');
+  checkbox.classList.add('check-task')
   checkbox.type = 'checkbox';
   checkbox.checked = obj.list[i].status;
 
