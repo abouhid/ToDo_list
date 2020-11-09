@@ -2,11 +2,11 @@ import {
   toDoList,
   task
 } from './tabs/todo'
+import { format, compareAsc } from 'date-fns'
+
 
 const submit = document.getElementById('submit');
 const sidebar_submit = document.getElementById('sidebar-submit');
-const main = document.querySelector('main')
-const sidebar = document.querySelector('.sidebar')
 const modal = document.querySelector('.modal');
 const modalContent = document.querySelector('.modal-content');
 const advButton = document.querySelector('.advButton')
@@ -17,20 +17,22 @@ const form = document.getElementById("task-form");
 const sidebarForm = document.getElementById("sidebar-form");
 const projectsList = []
 const doneList = document.querySelector('.done-list');
+const newListInput = document.getElementById("sidebar-input").value;
 const modalMessage = document.createElement('p')
 
 const defaultTasks = () => {
-  const dtask1 = task('The Winds of Winter', 'desc1', '2020-12-12', 'H', true);
-  const dtask2 = task('A Dream of Spring', 'desc1', '2020-12-12', 'H');
-  const dtask3 = task('A Clash of Kings', 'desc1', '2020-12-12', 'M');
-  const dtask4 = task('A Game of Thrones', 'desc1', '2020-12-12', 'L');
+  const dtask1 = task('The Winds of Winter', 'Book 1', '2022-12-11', 'H', true);
+  const dtask2 = task('A Dream of Spring', 'Book 2', '2021-12-03', 'H');
+  const dtask3 = task('A Clash of Kings', 'Book 3', '2023-12-12', 'M');
+  const dtask4 = task('A Game of Thrones', 'Book 2', '2021-11-06', 'L');
   const dTodoList1 = toDoList('A Song of Ice and Fire');
   const dTodoList2 = toDoList('The Lord of the Rings');
-  const dtask5 = task('The Two Towers', 'desc1', '2020-12-12', 'M');
+  const dtask5 = task('The Two Towers', 'desc1', '2022-12-04', 'M');
+  const dtask6 = task('Fellowship of the Ring', 'desc1', '2021-12-10', 'M');
 
 
   dTodoList1.list.push(dtask1, dtask2, dtask3, dtask4);
-  dTodoList2.list.push(dtask5);
+  dTodoList2.list.push(dtask5,dtask6);
 
   projectsList.push(dTodoList1);
   projectsList.push(dTodoList2);
@@ -63,6 +65,7 @@ const renderTasks = (obj, editForm = null, editNum = null) => {
       desc.textContent = obj.list[i].desc;
       date.textContent = obj.list[i].dueDate;
       priority.textContent = obj.list[i].priority;
+      // priority.classList.add('');
       mainInfoContainer.classList.add('main-info');
       additionalInfoContainer.classList.add('additional-info');
       checkbox.classList.add('mr-3');
@@ -100,7 +103,7 @@ const addNewTask = (obj) => {
   const taskDescInput = document.getElementById("task-desc-input").value;
   const taskDateInput = document.getElementById("task-date-input").value;
   const taskPriorityInput = document.getElementById("task-priority-input").value;
-  if (newTaskValidation(modal, taskTitleInput, taskDescInput, taskDateInput, taskPriorityInput)) {
+  if (newTaskValidation(modal, taskTitleInput)) {
     const newTask = task(taskTitleInput, taskDescInput, taskDateInput, taskPriorityInput);
     form.reset();
     obj.list.unshift(newTask);
@@ -127,9 +130,17 @@ submit.addEventListener('click', (e) => {
   renderTasks(current_project);
 });
 
-const newTaskValidation = (modal, title, desc, date, priority) => {
+const newTaskValidation = (modal, title) => {
   if (title === "") {
     openModal(modal, 'Task title must exist!');
+    return false;
+  } else {
+    return true;
+  }
+}
+const newListValidation = (modal, title) => {
+  if (title === "") {
+    openModal(modal, 'List title must exist!');
     return false;
   } else {
     return true;
@@ -211,7 +222,7 @@ const addEditTaskForm = (obj, i) => {
 
   return editForm;
 }
-const addEditTaskBtn = (obj, i, container) => {
+const addEditTaskBtn = (obj, i) => {
   const editBtn = document.createElement("span");
 
   editBtn.innerHTML = "<i class='fas fa-edit'></i>";
@@ -328,7 +339,6 @@ const addDeleteListBtn = (projectsList, i) => {
 }
 
 const addNewList = (obj) => {
-  const newListInput = document.getElementById("sidebar-input").value;
   const newList = toDoList(newListInput);
   sidebarForm.reset();
   obj.unshift(newList);
@@ -336,9 +346,12 @@ const addNewList = (obj) => {
 
 sidebar_submit.addEventListener('click', (e) => {
   e.preventDefault();
-  addNewList(projectsList);
+  if(newListValidation(modal,newListInput)){
+    addNewList(projectsList);
   renderLists(projectsList);
   renderTasks(projectsList[0]);
+  }
+  
 });
 
 advButton.addEventListener('click', (e) => {
