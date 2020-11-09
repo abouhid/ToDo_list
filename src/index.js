@@ -7,6 +7,8 @@ const submit = document.getElementById('submit');
 const sidebar_submit = document.getElementById('sidebar-submit');
 const main = document.querySelector('main')
 const sidebar = document.querySelector('.sidebar')
+const modal = document.querySelector('.modal');
+const modalContent = document.querySelector('.modal-content');
 const advButton = document.querySelector('.advButton')
 const advOptions = document.querySelector('.advanced-options')
 const tasksList = document.querySelector('.tasks-list')
@@ -146,23 +148,34 @@ const addEditTaskForm = (obj, i) => {
 
   submit.addEventListener("click", (e) => {
     e.preventDefault();
-    newTaskValidation(taskTitleInput,taskDescInput,taskDateInput,taskPriorityInput);
-    obj.list[i].title = taskTitleInput.value;
-    obj.list[i].desc = taskDescInput.value;
-    obj.list[i].dueDate = taskDateInput.value;
-    obj.list[i].priority = taskPriorityInput.value;
-    renderTasks(obj)
+    if (newTaskValidation(modal, taskTitleInput.value, taskDescInput.value, taskDateInput.value, taskPriorityInput.value)) {
+      obj.list[i].title = taskTitleInput.value;
+      obj.list[i].desc = taskDescInput.value;
+      obj.list[i].dueDate = taskDateInput.value;
+      obj.list[i].priority = taskPriorityInput.value;
+      renderTasks(obj)
+    }
   });
 
   return editForm;
 }
 
-const newTaskValidation = (title,desc,date,priority) => {
-  if (title == "") {
-    modal("Name must be filled out");
-    return false;
-  }
+const openModal = (modal, content = '') => {
+  modal.style.display = "block"; 
+  console.log(modal)
+}
 
+const newTaskValidation = (modal, title,desc,date,priority) => {
+  if (title === "") {
+    console.log(modal)
+    console.log('modal')
+    openModal(modal);
+    return false;
+  } else {
+    console.log('modal')
+    console.log(modal)
+    return true;
+  }
 }
 
 const addEditTaskBtn = (obj, i, container) => {
@@ -192,10 +205,14 @@ const addNewTask = (obj) => {
   const taskDescInput = document.getElementById("task-desc-input").value;
   const taskDateInput = document.getElementById("task-date-input").value;
   const taskPriorityInput = document.getElementById("task-priority-input").value;
-
-  const newTask = task(taskTitleInput, taskDescInput, taskDateInput, taskPriorityInput);
-  form.reset();
-  obj.list.unshift(newTask);
+  if (newTaskValidation(modal, taskTitleInput.value, taskDescInput.value, taskDateInput.value, taskPriorityInput.value)) {
+    const newTask = task(taskTitleInput, taskDescInput, taskDateInput, taskPriorityInput);
+    form.reset();
+    obj.list.unshift(newTask);
+    console.log('asd')
+  }
+  console.log('asdaaad')
+  
 };
 
 const addShowDetailsBtn = (container) => {
@@ -242,13 +259,13 @@ const addCheckbox = (obj, i) => {
 
 }
 
-submit.addEventListener('click', (e) => {
-  e.preventDefault();
-  let active = document.querySelector('.active').firstChild.innerText;
-  let current_project = projectsList.filter(obj => obj.title === active)[0];
-  addNewTask(current_project);
-  renderTasks(current_project);
-});
+// submit.addEventListener('click', (e) => {
+//   e.preventDefault();
+//   let active = document.querySelector('.active').firstChild.innerText;
+//   let current_project = projectsList.filter(obj => obj.title === active)[0];
+//   addNewTask(current_project);
+//   renderTasks(current_project);
+// });
 
 const renderLists = (projectsList) => {
   while (projectsListContainer.firstChild) {
