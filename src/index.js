@@ -169,7 +169,7 @@ sidebarSubmit.addEventListener('click', (e) => {
 });
 
 
-if (localStorage.getItem("projectsList") === null) {
+if (localStorage.getItem('projectsList') === null) {
   defaultTasks(projectsList);
 }
 
