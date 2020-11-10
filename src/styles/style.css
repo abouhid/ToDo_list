@@ -167,3 +167,61 @@ body {
   justify-content: space-between;
   align-items: center;
 }
+
+.high {
+  background-color: red;
+}
+
+.medium {
+  background-color: yellow;
+}
+
+.low {
+  background-color: green;
+}
+
+.tooltipp {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* tooltipp text */
+.tooltipp .tooltipptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  /* Position the tooltipp text */
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+
+  /* Fade in tooltipp */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* tooltipp arrow */
+.tooltipp .tooltipptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltipp text when you mouse over the tooltipp container */
+.tooltipp:hover .tooltipptext {
+  visibility: visible;
+  opacity: 1;
+}

@@ -56,6 +56,7 @@ const renderTasks = (obj, editForm = null, editNum = null) => {
     const detailsContainer = document.createElement("div");
     const desc = document.createElement("p");
     const date = document.createElement("p");
+    const tooltipp= document.createElement("span"); 
     const priority = document.createElement("p");
     const showBtn = addShowDetailsBtn(detailsContainer);
     const deleteTaskBtn = addDeleteTaskBtn(obj, i);
@@ -65,7 +66,10 @@ const renderTasks = (obj, editForm = null, editNum = null) => {
     const addContent = (() => {
       title.textContent = obj.list[i].title;
       desc.textContent = obj.list[i].desc;
-      date.textContent = formatDate(obj.list[i].dueDate);
+      date.textContent = obj.list[i].dueDate;
+      tooltipp.textContent = formatDate(obj.list[i].dueDate);
+      date.classList.add("tooltipp");
+      tooltipp.classList.add("tooltipptext");
       priority.textContent = obj.list[i].priority;
       priority.classList.add(stylesToPriority(priority), 'p-1', 'rounded');
       mainInfoContainer.classList.add('main-info');
@@ -78,6 +82,7 @@ const renderTasks = (obj, editForm = null, editNum = null) => {
       detailsContainer.style.display = "none";
       detailsContainer.classList.add('details-container', 'mt-3');
 
+      date.appendChild(tooltipp);
       mainInfoContainer.appendChild(checkbox);
       mainInfoContainer.appendChild(title);
       additionalInfoContainer.appendChild(priority);
@@ -102,11 +107,11 @@ const renderTasks = (obj, editForm = null, editNum = null) => {
 
 const stylesToPriority = (obj) => {
   if (obj.textContent === "H") {
-    return "bg-danger"
+    return "high"
   } else if (obj.textContent === "M") {
-    return "bg-warning";
+    return "medium";
   } else {
-    return "bg-success";
+    return "low";
   }
 }
 
