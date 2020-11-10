@@ -190,8 +190,8 @@ const addEditTaskForm = (obj, i) => {
   taskDescInput.classList.add('form-control', 'mb-2');
   taskDateInput.classList.add('form-control', 'mr-2');
   taskPriorityInput.classList.add('custom-select', 'custom-select-sm');
-  cancel.classList.add('btn', 'btn-secondary', 'button', 'ml-3')
-  submit.classList.add('btn', 'btn-secondary', 'button', 'ml-3')
+  cancel.classList.add('btn', 'btn-secondary', 'button', 'ml-md-3')
+  submit.classList.add('btn', 'btn-secondary', 'button', 'ml-md-3')
   
   extraInputs.classList.add('extra-inputs')
 

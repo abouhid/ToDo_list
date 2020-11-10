@@ -110,7 +110,6 @@ body {
   margin-bottom: 2%;
 }
 
-
 .done-list > div {
     opacity: 0.7;
     text-decoration: line-through;
@@ -168,16 +167,28 @@ body {
   align-items: center;
 }
 
+@media (max-width: 767px) {
+  .extra-inputs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .custom-select input {
+    margin-left: 0!important;
+  }
+}
 .high {
-  background-color: red;
+  background-color: rgba(223, 39, 39, 0.9);
 }
 
 .medium {
-  background-color: yellow;
+  background-color:rgb(242, 255, 0,0.8) ;
 }
 
 .low {
-  background-color: green;
+  background-color:rgba(97, 223, 39, 0.4) ;
 }
 
 .tooltipp {
