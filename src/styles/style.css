@@ -14,13 +14,13 @@ body {
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
 
 .modal-content {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
   background-color: #fefefe;
   margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
@@ -29,8 +29,8 @@ body {
 }
 
 .exit-modal {
-    align-self: flex-end;
-    margin-top: 9%;
+  align-self: flex-end;
+  margin-top: 9%;
 }
 
 .button {
@@ -115,11 +115,13 @@ body {
   display: none;
 }
 
-.tasks-list, .done-list {
+.tasks-list,
+.done-list {
   border-radius: 5px;
 }
 
-.tasks-list > div, .done-list > div {
+.tasks-list > div,
+.done-list > div {
   background-color: #f8f8f8;
   border-radius: 5px;
   padding: 2%;
@@ -127,8 +129,8 @@ body {
 }
 
 .done-list > div {
-    opacity: 0.7;
-    text-decoration: line-through;
+  opacity: 0.7;
+  text-decoration: line-through;
 }
 
 .date-and-priority {
@@ -192,7 +194,7 @@ body {
   }
 
   .custom-select input {
-    margin-left: 0!important;
+    margin-left: 0 !important;
   }
 }
 
@@ -202,12 +204,12 @@ body {
 }
 
 .task-container p.medium {
-  background-color: rgb(242, 255, 0,0.8) ;
+  background-color: rgb(242, 255, 0, 0.8);
   margin-left: 0;
 }
 
 .task-container p.low {
-  background-color: rgba(97, 223, 39, 0.4) ;
+  background-color: rgba(97, 223, 39, 0.4);
   margin-left: 0;
 }
 
