@@ -1,3 +1,9 @@
+import { newListInput, addDeleteListBtn } from './events';
+import { renderTasks } from './task';
+
+const projectsListContainer = document.querySelector('.project-names');
+const sidebarForm = document.getElementById('sidebar-form');
+
 const toDoList = (title, list = []) => ({ title, list });
 
 const addNewList = (obj) => {

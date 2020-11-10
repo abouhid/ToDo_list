@@ -1,4 +1,4 @@
-import { openModal } from './helper'
+import { openModal } from './helper';
 
 const newTaskValidation = (modal, title) => {
   if (title === '') {
@@ -16,4 +16,4 @@ const newListValidation = (modal, title) => {
   return true;
 };
 
-export { newTaskValidation, newListValidation }
+export { newTaskValidation, newListValidation };

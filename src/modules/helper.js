@@ -1,5 +1,8 @@
-import { projectsList } from '../index'
 import differenceInDays from 'date-fns/differenceInDays';
+import { projectsList } from '../index';
+import { task } from './task';
+import { toDoList } from './toDoList';
+
 
 const modal = document.querySelector('.modal');
 
@@ -37,8 +40,8 @@ const formatDate = (date) => {
 
 const openModal = (modal, content) => {
   const exitModal = document.querySelector('.exit-modal');
-  
   const modalContent = document.querySelector('.modal-content');
+  const modalMessage = document.createElement('p');
 
   modal.style.display = 'block';
   modalMessage.textContent = content;
@@ -57,4 +60,6 @@ const appendDone = (obj, i, taskContainer, doneList, tasksList) => {
   }
 };
 
-export { defaultTasks, stylesToPriority, formatDate, openModal, appendDone, modal }
+export {
+  defaultTasks, stylesToPriority, formatDate, openModal, appendDone, modal,
+};

@@ -1,3 +1,18 @@
+import {
+  addShowDetailsBtn, addDeleteTaskBtn, addCheckbox, addEditTaskBtn,
+} from './events';
+import { newTaskValidation } from './validations';
+import {
+  modal, formatDate, stylesToPriority, appendDone,
+} from './helper';
+
+
+
+const tasksList = document.querySelector('.tasks-list');
+const doneList = document.querySelector('.done-list');
+const form = document.getElementById('task-form');
+
+
 const task = (title, desc, dueDate, priority, status = false) => ({
   title, desc, dueDate, priority, status,
 });
@@ -73,6 +88,4 @@ const renderTasks = (obj, editForm = null, editNum = null) => {
   }
 };
 
-export { task, addNewTask, renderTasks}
-
-
+export { task, addNewTask, renderTasks };
