@@ -83,16 +83,9 @@ const renderTasks = (obj, editForm = null, editNum = null) => {
       detailsContainer.classList.add('details-container', 'mt-2');
 
       date.appendChild(tooltipp);
-      mainInfoContainer.appendChild(checkbox);
-      mainInfoContainer.appendChild(title);
-      additionalInfoContainer.appendChild(priority);
-      additionalInfoContainer.appendChild(date);
-      additionalInfoContainer.appendChild(deleteTaskBtn);
-      additionalInfoContainer.appendChild(editBtn);
-      additionalInfoContainer.appendChild(showBtn);
-
-      taskContainer.appendChild(mainInfoContainer);
-      taskContainer.appendChild(additionalInfoContainer);
+      mainInfoContainer.append(checkbox, title);
+      additionalInfoContainer.append(priority, date, deleteTaskBtn, editBtn, showBtn);
+      taskContainer.append(mainInfoContainer, additionalInfoContainer);
 
       if (i === editNum) {
         taskContainer.appendChild(editForm)
@@ -136,8 +129,7 @@ const openModal = (modal, content) => {
   const exitModal = document.querySelector('.exit-modal')
   modal.style.display = "block";
   modalMessage.textContent = content;
-  modalContent.appendChild(modalMessage);
-  modalContent.appendChild(exitModal)
+  modalContent.append(modalMessage, exitModal)
 
   exitModal.addEventListener('click', () => {
     modal.style.display = "none";
@@ -219,16 +211,10 @@ const addEditTaskForm = (obj, i) => {
   taskDateInput.value = obj.list[i].dueDate;
   taskPriorityInput.value = obj.list[i].priority;
 
-  taskPriorityInput.appendChild(priorityOptionHigh);
-  taskPriorityInput.appendChild(priorityOptionMedium);
-  taskPriorityInput.appendChild(priorityOptionLow);
+  taskPriorityInput.append(priorityOptionHigh, priorityOptionMedium, priorityOptionLow);
 
-  editForm.appendChild(taskTitleInput);
-  editForm.appendChild(taskDescInput);
-  extraInputs.appendChild(taskDateInput);
-  extraInputs.appendChild(taskPriorityInput);
-  extraInputs.appendChild(cancel);
-  extraInputs.appendChild(submit);
+  editForm.append(taskTitleInput, taskDescInput);
+  extraInputs.append(taskDateInput, taskPriorityInput, cancel, submit);
   editForm.appendChild(extraInputs);
 
   submit.addEventListener("click", (e) => {
@@ -324,8 +310,8 @@ const renderLists = (projectsList) => {
     const appendElements = (() => {
       cont.classList.add('list-cont')
       title.textContent = projectsList[i].title;
-      cont.appendChild(title);
-      cont.appendChild(deleteListBtn);
+
+      cont.append(title, deleteListBtn);
       projectsListContainer.appendChild(cont);
 
       if (projectsList[0] && i === 0) {
