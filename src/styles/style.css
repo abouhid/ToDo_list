@@ -1,12 +1,9 @@
 body {
-  /* padding: 10px
-    #353531
-    #EC4E20
-    495c59 gray
-    E6E7CA white
-    47704A green
-    */
-  }
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #353531;
+  background-image: linear-gradient(to right, #353531 50%, #ec4e20 50%);
+}
 
 .modal {
   display: none; /* Hidden by default */
@@ -30,6 +27,7 @@ body {
   border: 1px solid #888;
   width: fit-content; /* Could be more or less, depending on screen size */
 }
+
 .exit-modal {
     align-self: flex-end;
     margin-top: 9%;
@@ -61,6 +59,23 @@ body {
   min-width: 25%;
 }
 
+@media (max-width: 500px) {
+  .sidebar {
+    width: 15%;
+  }
+
+  .sidebar h3 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .sidebar .list-cont {
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+}
+
 .sidebar img {
   width: 70px;
   margin: 0 auto;
@@ -76,8 +91,9 @@ body {
 }
 
 .list-cont h3 {
-    width: 100%;
-    padding: 5%;
+  width: 100%;
+  padding: 5%;
+  line-height: 20px;
 }
 
 .active {
@@ -145,7 +161,7 @@ body {
 
 .check-task {
   zoom: 1.8;
-  margin-top: 0;
+  margin-top: 0 !important;
 }
 
 .task-container form {
@@ -179,16 +195,20 @@ body {
     margin-left: 0!important;
   }
 }
-.high {
+
+.task-container p.high {
   background-color: rgba(223, 39, 39, 0.9);
+  margin-left: 0;
 }
 
-.medium {
-  background-color:rgb(242, 255, 0,0.8) ;
+.task-container p.medium {
+  background-color: rgb(242, 255, 0,0.8) ;
+  margin-left: 0;
 }
 
-.low {
-  background-color:rgba(97, 223, 39, 0.4) ;
+.task-container p.low {
+  background-color: rgba(97, 223, 39, 0.4) ;
+  margin-left: 0;
 }
 
 .tooltipp {

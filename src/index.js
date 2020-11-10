@@ -80,7 +80,7 @@ const renderTasks = (obj, editForm = null, editNum = null) => {
     const appendElements = (() => {
 
       detailsContainer.style.display = "none";
-      detailsContainer.classList.add('details-container', 'mt-3');
+      detailsContainer.classList.add('details-container', 'mt-2');
 
       date.appendChild(tooltipp);
       mainInfoContainer.appendChild(checkbox);
@@ -188,8 +188,8 @@ const addEditTaskForm = (obj, i) => {
 
   taskTitleInput.classList.add('form-control', 'mb-2');
   taskDescInput.classList.add('form-control', 'mb-2');
-  taskDateInput.classList.add('form-control', 'mr-2');
-  taskPriorityInput.classList.add('custom-select', 'custom-select-sm');
+  taskDateInput.classList.add('form-control', 'mr-md-2', 'mb-2', 'mb-md-0');
+  taskPriorityInput.classList.add('custom-select', 'custom-select-sm', 'mb-2', 'mb-md-0');
   cancel.classList.add('btn', 'btn-secondary', 'button', 'ml-md-3')
   submit.classList.add('btn', 'btn-secondary', 'button', 'ml-md-3')
   
