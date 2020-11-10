@@ -19,7 +19,7 @@ const form = document.getElementById("task-form");
 const sidebarForm = document.getElementById("sidebar-form");
 const projectsList = []
 const doneList = document.querySelector('.done-list');
-const newListInput = document.getElementById("sidebar-input").value;
+const newListInput = document.getElementById("sidebar-input");
 const modalMessage = document.createElement('p')
 
 const defaultTasks = () => {
@@ -361,14 +361,14 @@ const addDeleteListBtn = (projectsList, i) => {
 }
 
 const addNewList = (obj) => {
-  const newList = toDoList(newListInput);
+  const newList = toDoList(newListInput.value);
   sidebarForm.reset();
   obj.unshift(newList);
 };
 
 sidebar_submit.addEventListener('click', (e) => {
   e.preventDefault();
-  if(newListValidation(modal,newListInput)){
+  if(newListValidation(modal,newListInput.value)){
     addNewList(projectsList);
   renderLists(projectsList);
   renderTasks(projectsList[0]);
