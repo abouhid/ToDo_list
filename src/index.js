@@ -3,6 +3,8 @@ import {
   addDeleteTaskBtn,
   addCheckbox,
   addDeleteListBtn,
+  saveLocalStorage,
+  projectsList,
 } from './modules/events';
 
 import {
@@ -32,8 +34,6 @@ const doneList = document.querySelector('.done-list');
 const sidebarForm = document.getElementById('sidebar-form');
 const sidebarSubmit = document.getElementById('sidebar-submit');
 const projectsListContainer = document.querySelector('.project-names');
-
-const projectsList = [];
 
 const renderTasks = (obj, editForm = null, editNum = null) => {
   while (tasksList.firstChild) {
@@ -132,7 +132,7 @@ const renderLists = (projectsList) => {
   }
 };
 
-const defaultTasks = () => {
+const defaultTasks = (projectsList) => {
   const dtask1 = task('The Winds of Winter', 'Book 1', '2022-12-11', 'H', true);
   const dtask2 = task('A Dream of Spring', 'Book 2', '2021-12-03', 'H');
   const dtask3 = task('A Clash of Kings', 'Book 3', '2023-12-12', 'M');
@@ -154,6 +154,7 @@ submit.addEventListener('click', (e) => {
   const active = document.querySelector('.active').firstChild.innerText;
   const currentProject = projectsList.filter((obj) => obj.title === active)[0];
   addNewTask(currentProject, newTaskValidation, form);
+  saveLocalStorage();
   renderTasks(currentProject);
 });
 
@@ -161,12 +162,16 @@ sidebarSubmit.addEventListener('click', (e) => {
   e.preventDefault();
   if (newListValidation(modal, newListInput.value, openModal)) {
     addNewList(projectsList, sidebarForm);
+    saveLocalStorage();
     renderLists(projectsList);
     renderTasks(projectsList[0]);
   }
 });
 
 
-defaultTasks();
+if (localStorage.getItem("projectsList") === null) {
+  defaultTasks(projectsList);
+}
+
 renderLists(projectsList);
 renderTasks(projectsList[0]);

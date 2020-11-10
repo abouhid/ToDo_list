@@ -1,5 +1,11 @@
 import { newTaskValidation, modal, openModal } from './helper';
 
+const projectsList = JSON.parse(localStorage.getItem('projectsList')) || [];
+
+const saveLocalStorage = () => {
+  localStorage.setItem('projectsList', JSON.stringify(projectsList));
+};
+
 const addEditTaskForm = (obj, i, renderTasks, newTaskValidation) => {
   const editForm = document.createElement('form');
   const taskTitleInput = document.createElement('input');
@@ -65,6 +71,7 @@ const addEditTaskForm = (obj, i, renderTasks, newTaskValidation) => {
       obj.list[i].desc = taskDescInput.value;
       obj.list[i].dueDate = taskDateInput.value;
       obj.list[i].priority = taskPriorityInput.value;
+      saveLocalStorage();
       renderTasks(obj);
     }
   });
@@ -93,7 +100,7 @@ const addDeleteTaskBtn = (obj, i, renderTasks) => {
   deleteBtn.addEventListener('click', () => {
     obj.list.splice(i, 1);
     renderTasks(obj);
-    // saveLocalStorage();
+    saveLocalStorage();
   });
 
   return deleteBtn;
@@ -108,7 +115,7 @@ const addCheckbox = (obj, i, renderTasks) => {
   checkbox.addEventListener('change', () => {
     obj.list[i].status = !!checkbox.checked; // why here two (!!)
     renderTasks(obj);
-    // saveLocalStorage();
+    saveLocalStorage();
   });
 
   return checkbox;
@@ -124,7 +131,7 @@ const addDeleteListBtn = (projectsList, i, renderLists, renderTasks) => {
     renderLists(projectsList);
 
     renderTasks(projectsList[0]);
-    // saveLocalStorage();
+    saveLocalStorage();
   });
 
   return deleteBtn;
@@ -136,4 +143,6 @@ export {
   addDeleteTaskBtn,
   addCheckbox,
   addDeleteListBtn,
+  saveLocalStorage,
+  projectsList,
 };
