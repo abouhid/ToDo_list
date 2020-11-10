@@ -4,7 +4,7 @@
 
 # To-do List App
 
-> A Javascript To-Do List app, which allows the user to create tasks with descpritions, due date and it's priority. Alongside these features, you are able to create numerous lists for different projects. The app uses mostly JS and webpack as a module bundler
+> A Javascript To-Do List app, which allows the user to create tasks with descriptions, due date and its priority. Alongside these features, you are able to create numerous lists for different projects. The app uses mostly JS and webpack as a module bundler. 
 
 ![screenshot](./screenshot1.png)
 
