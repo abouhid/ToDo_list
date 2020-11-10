@@ -2,7 +2,7 @@
 ![visitors](https://visitor-badge.glitch.me/badge?page_id=abouhid/ToDo_list)
 
 
-# Library
+# To-do List App
 
 > A Javascript To-Do List app, which allows the user to create tasks with descpritions, due date and it's priority. Alongside these features, you are able to create numerous lists for different projects. The app uses mostly JS and webpack as a module bundler
 
@@ -16,7 +16,7 @@
 
 ## Live Demo
 
-[Live Demo Link](https://js-library.netlify.app/)
+[Live Demo Link](https://rawcdn.githack.com/abouhid/ToDo_list/a197af7d187ba32312cbb632062acbcec30b6fee/dist/index.html)
 
 ## Getting Started
 
