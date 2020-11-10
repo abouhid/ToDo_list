@@ -1,28 +1,8 @@
 import differenceInDays from 'date-fns/differenceInDays';
-import { projectsList } from '../index';
-import { task } from './task';
-import { toDoList } from './toDoList';
-
 
 const modal = document.querySelector('.modal');
-
-const defaultTasks = () => {
-  const dtask1 = task('The Winds of Winter', 'Book 1', '2022-12-11', 'H', true);
-  const dtask2 = task('A Dream of Spring', 'Book 2', '2021-12-03', 'H');
-  const dtask3 = task('A Clash of Kings', 'Book 3', '2023-12-12', 'M');
-  const dtask4 = task('A Game of Thrones', 'Book 2', '2021-11-06', 'L');
-  const dTodoList1 = toDoList('A Song of Ice and Fire');
-  const dTodoList2 = toDoList('The Lord of the Rings');
-  const dtask5 = task('The Two Towers', 'desc1', '2022-12-04', 'M');
-  const dtask6 = task('Fellowship of the Ring', 'desc1', '2021-12-10', 'M');
-
-
-  dTodoList1.list.push(dtask1, dtask2, dtask3, dtask4);
-  dTodoList2.list.push(dtask5, dtask6);
-
-  projectsList.push(dTodoList1);
-  projectsList.push(dTodoList2);
-};
+const advButton = document.querySelector('.advButton');
+const advOptions = document.querySelector('.advanced-options');
 
 const stylesToPriority = (obj) => {
   if (obj.textContent === 'H') {
@@ -60,6 +40,60 @@ const appendDone = (obj, i, taskContainer, doneList, tasksList) => {
   }
 };
 
+const newTaskValidation = (modal, title, openModal) => {
+  if (title === '') {
+    openModal(modal, 'Task title must exist!');
+    return false;
+  }
+  return true;
+};
+
+const newListValidation = (modal, title, openModal) => {
+  if (title === '') {
+    openModal(modal, 'List title must exist!');
+    return false;
+  }
+  return true;
+};
+
+document.addEventListener('keydown', (e) => {
+  const { keyCode } = e;
+  if (keyCode === 27) {
+    modal.style.display = 'none';
+  }
+});
+
+const addShowDetailsBtn = (container) => {
+  const chevron = document.createElement('span');
+  chevron.innerHTML = '<i class="fas fa-chevron-down"></i>';
+
+  chevron.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (container.style.display === 'block') container.style.display = 'none';
+    else container.style.display = 'block';
+  });
+
+  return chevron;
+};
+
+advButton.addEventListener('click', () => {
+  // e.preventDefault();
+  if (advOptions.style.display === 'block') {
+    advOptions.style.display = 'none';
+    advButton.innerText = 'Advanced Options';
+  } else {
+    advOptions.style.display = 'block';
+    advButton.textContent = 'Hide Options';
+  }
+});
+
 export {
-  defaultTasks, stylesToPriority, formatDate, openModal, appendDone, modal,
+  stylesToPriority,
+  formatDate,
+  openModal,
+  appendDone,
+  newTaskValidation,
+  newListValidation,
+  addShowDetailsBtn,
+  modal,
 };

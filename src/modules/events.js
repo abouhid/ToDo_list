@@ -1,53 +1,6 @@
-import { projectsList } from '../index';
-import { modal } from './helper';
-import { newListValidation, newTaskValidation } from './validations';
-import { addNewList, renderLists } from './toDoList';
-import { renderTasks, addNewTask } from './task';
+import { newTaskValidation, modal, openModal } from './helper';
 
-
-const submit = document.getElementById('submit');
-const sidebarSubmit = document.getElementById('sidebar-submit');
-const advButton = document.querySelector('.advButton');
-const advOptions = document.querySelector('.advanced-options');
-const newListInput = document.getElementById('sidebar-input');
-
-
-submit.addEventListener('click', (e) => {
-  e.preventDefault();
-  const active = document.querySelector('.active').firstChild.innerText;
-  const currentProject = projectsList.filter(obj => obj.title === active)[0];
-  addNewTask(currentProject);
-  renderTasks(currentProject);
-});
-
-document.addEventListener('keydown', (e) => {
-  const { keyCode } = e;
-  if (keyCode === 27) {
-    modal.style.display = 'none';
-  }
-});
-
-sidebarSubmit.addEventListener('click', (e) => {
-  e.preventDefault();
-  if (newListValidation(modal, newListInput.value)) {
-    addNewList(projectsList);
-    renderLists(projectsList);
-    renderTasks(projectsList[0]);
-  }
-});
-
-advButton.addEventListener('click', () => {
-  // e.preventDefault();
-  if (advOptions.style.display === 'block') {
-    advOptions.style.display = 'none';
-    advButton.innerText = 'Advanced Options';
-  } else {
-    advOptions.style.display = 'block';
-    advButton.textContent = 'Hide Options';
-  }
-});
-
-const addEditTaskForm = (obj, i) => {
+const addEditTaskForm = (obj, i, renderTasks, newTaskValidation) => {
   const editForm = document.createElement('form');
   const taskTitleInput = document.createElement('input');
   const taskDescInput = document.createElement('input');
@@ -60,7 +13,12 @@ const addEditTaskForm = (obj, i) => {
   taskTitleInput.classList.add('form-control', 'mb-2');
   taskDescInput.classList.add('form-control', 'mb-2');
   taskDateInput.classList.add('form-control', 'mr-md-2', 'mb-2', 'mb-md-0');
-  taskPriorityInput.classList.add('custom-select', 'custom-select-sm', 'mb-2', 'mb-md-0');
+  taskPriorityInput.classList.add(
+    'custom-select',
+    'custom-select-sm',
+    'mb-2',
+    'mb-md-0',
+  );
   cancel.classList.add('btn', 'btn-secondary', 'button', 'ml-md-3');
   submit.classList.add('btn', 'btn-secondary', 'button', 'ml-md-3');
 
@@ -90,7 +48,11 @@ const addEditTaskForm = (obj, i) => {
   taskDateInput.value = obj.list[i].dueDate;
   taskPriorityInput.value = obj.list[i].priority;
 
-  taskPriorityInput.append(priorityOptionHigh, priorityOptionMedium, priorityOptionLow);
+  taskPriorityInput.append(
+    priorityOptionHigh,
+    priorityOptionMedium,
+    priorityOptionLow,
+  );
 
   editForm.append(taskTitleInput, taskDescInput);
   extraInputs.append(taskDateInput, taskPriorityInput, cancel, submit);
@@ -98,11 +60,7 @@ const addEditTaskForm = (obj, i) => {
 
   submit.addEventListener('click', (e) => {
     e.preventDefault();
-    if (newTaskValidation(modal,
-      taskTitleInput.value,
-      taskDescInput.value,
-      taskDateInput.value,
-      taskPriorityInput.value)) {
+    if (newTaskValidation(modal, taskTitleInput.value, openModal)) {
       obj.list[i].title = taskTitleInput.value;
       obj.list[i].desc = taskDescInput.value;
       obj.list[i].dueDate = taskDateInput.value;
@@ -114,33 +72,20 @@ const addEditTaskForm = (obj, i) => {
   return editForm;
 };
 
-const addEditTaskBtn = (obj, i) => {
+const addEditTaskBtn = (obj, i, renderTasks) => {
   const editBtn = document.createElement('span');
 
   editBtn.innerHTML = "<i class='fas fa-edit'></i>";
 
   editBtn.addEventListener('click', () => {
-    const editForm = addEditTaskForm(obj, i);
+    const editForm = addEditTaskForm(obj, i, renderTasks, newTaskValidation);
     renderTasks(obj, editForm, i);
   });
 
   return editBtn;
 };
 
-const addShowDetailsBtn = (container) => {
-  const chevron = document.createElement('span');
-  chevron.innerHTML = '<i class="fas fa-chevron-down"></i>';
-
-  chevron.addEventListener('click', (e) => {
-    e.preventDefault();
-    if (container.style.display === 'block') container.style.display = 'none';
-    else container.style.display = 'block';
-  });
-
-  return chevron;
-};
-
-const addDeleteTaskBtn = (obj, i) => {
+const addDeleteTaskBtn = (obj, i, renderTasks) => {
   const deleteBtn = document.createElement('span');
 
   deleteBtn.innerHTML = "<i class='fas fa-trash-alt'></i>";
@@ -154,7 +99,7 @@ const addDeleteTaskBtn = (obj, i) => {
   return deleteBtn;
 };
 
-const addCheckbox = (obj, i) => {
+const addCheckbox = (obj, i, renderTasks) => {
   const checkbox = document.createElement('input');
   checkbox.classList.add('check-task');
   checkbox.type = 'checkbox';
@@ -169,7 +114,7 @@ const addCheckbox = (obj, i) => {
   return checkbox;
 };
 
-const addDeleteListBtn = (projectsList, i) => {
+const addDeleteListBtn = (projectsList, i, renderLists, renderTasks) => {
   const deleteBtn = document.createElement('span');
 
   deleteBtn.innerHTML = "<i class='fas fa-trash-alt'></i>";
@@ -188,9 +133,7 @@ const addDeleteListBtn = (projectsList, i) => {
 export {
   addEditTaskForm,
   addEditTaskBtn,
-  addShowDetailsBtn,
   addDeleteTaskBtn,
   addCheckbox,
   addDeleteListBtn,
-  newListInput,
 };
