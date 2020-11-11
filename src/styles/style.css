@@ -102,7 +102,7 @@ body {
 }
 
 #task-form {
-  /* display: none; */
+  display: none;
   margin-bottom: 2%;
   margin-top: 4%;
 }

@@ -90,7 +90,6 @@ const addEditTaskBtn = (obj, i, renderTasks, j = null) => {
   editBtn.innerHTML = "<i class='fas fa-edit'></i>";
 
   editBtn.addEventListener('click', () => {
-    console.log("123");
     const editForm = addEditTaskForm(obj, i, renderTasks, newTaskValidation);
     renderTasks(obj, editForm, i, j);
   });

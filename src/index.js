@@ -42,23 +42,24 @@ const renderTasks = (obj, editForm = null, editNum = null) => {
   while (doneList.firstChild) {
     doneList.removeChild(doneList.firstChild);
   }
-   form.style.display = 'block'
+  form.style.display = 'block';
 
-  if (projectsList === undefined || projectsList.length == 0) {
-    return false;
+  if (projectsList === undefined || projectsList.length === 0) {
+    form.style.display = 'none';
+    return;
   }
 
   for (let i = 0; i < obj.list.length; i += 1) {
-    const taskContainer = document.createElement("div");
-    taskContainer.classList.add("task-container");
-    const mainInfoContainer = document.createElement("div");
-    const additionalInfoContainer = document.createElement("div");
-    const title = document.createElement("h3");
-    const detailsContainer = document.createElement("div");
-    const desc = document.createElement("p");
-    const date = document.createElement("p");
-    const tooltipp = document.createElement("span");
-    const priority = document.createElement("p");
+    const taskContainer = document.createElement('div');
+    taskContainer.classList.add('task-container');
+    const mainInfoContainer = document.createElement('div');
+    const additionalInfoContainer = document.createElement('div');
+    const title = document.createElement('h3');
+    const detailsContainer = document.createElement('div');
+    const desc = document.createElement('p');
+    const date = document.createElement('p');
+    const tooltipp = document.createElement('span');
+    const priority = document.createElement('p');
     const showBtn = addShowDetailsBtn(detailsContainer);
     const deleteTaskBtn = addDeleteTaskBtn(obj, i, renderTasks);
     const checkbox = addCheckbox(obj, i, renderTasks);
@@ -69,19 +70,19 @@ const renderTasks = (obj, editForm = null, editNum = null) => {
       desc.textContent = obj.list[i].desc;
       date.textContent = obj.list[i].dueDate;
       tooltipp.textContent = formatDate(obj.list[i].dueDate);
-      date.classList.add("tooltipp");
-      tooltipp.classList.add("tooltipptext");
+      date.classList.add('tooltipp');
+      tooltipp.classList.add('tooltipptext');
       priority.textContent = obj.list[i].priority;
-      priority.classList.add(stylesToPriority(priority), "p-1", "rounded");
-      mainInfoContainer.classList.add("main-info");
-      additionalInfoContainer.classList.add("additional-info");
-      checkbox.classList.add("mr-2");
+      priority.classList.add(stylesToPriority(priority), 'p-1', 'rounded');
+      mainInfoContainer.classList.add('main-info');
+      additionalInfoContainer.classList.add('additional-info');
+      checkbox.classList.add('mr-2');
     };
     addContent();
 
     const appendElements = () => {
-      detailsContainer.style.display = "none";
-      detailsContainer.classList.add("details-container", "mt-2");
+      detailsContainer.style.display = 'none';
+      detailsContainer.classList.add('details-container', 'mt-2');
 
       date.appendChild(tooltipp);
       mainInfoContainer.append(checkbox, title);
@@ -90,7 +91,7 @@ const renderTasks = (obj, editForm = null, editNum = null) => {
         date,
         deleteTaskBtn,
         editBtn,
-        showBtn
+        showBtn,
       );
       taskContainer.append(mainInfoContainer, additionalInfoContainer);
 
@@ -106,82 +107,6 @@ const renderTasks = (obj, editForm = null, editNum = null) => {
   }
 };
 
-const renderLists = (projectsList) => {
-  while (projectsListContainer.firstChild) {
-    projectsListContainer.removeChild(projectsListContainer.firstChild);
-  }
-
-  if (projectsList === undefined || projectsList.length == 0) {
-    return false;
-  }
-  
-  const allTaskHeader = allTasksList();
-  projectsListContainer.appendChild(allTaskHeader);
-  
-  for (let i = 0; i < projectsList.length; i += 1) {
-    const cont = document.createElement('div');
-    const title = document.createElement('h3');
-    const deleteListBtn = addDeleteListBtn(projectsList, i, renderLists, renderTasks);
-
-    const appendElements = () => {
-      cont.classList.add('list-cont');
-      title.textContent = projectsList[i].title;
-
-      cont.append(title, deleteListBtn);
-      projectsListContainer.appendChild(cont);
-
-      if (projectsList[0] && i === 0) {
-        cont.classList.add('active');
-      }
-
-      title.addEventListener('click', (e) => {
-        e.preventDefault();
-        document.querySelector('.active').classList.remove('active');
-        cont.classList.add('active');
-        renderTasks(projectsList[i]);
-      });
-    };
-    appendElements();
-  }
-};
-
-const defaultTasks = (projectsList) => {
-  const dtask1 = task('The Winds of Winter', 'Book 1', '2022-12-11', 'H', true);
-  const dtask2 = task('A Dream of Spring', 'Book 2', '2021-12-03', 'H');
-  const dtask3 = task('A Clash of Kings', 'Book 3', '2023-12-12', 'M');
-  const dtask4 = task('A Game of Thrones', 'Book 2', '2021-11-06', 'L');
-  const dTodoList1 = toDoList('A Song of Ice and Fire');
-  const dTodoList2 = toDoList('The Lord of the Rings');
-  const dtask5 = task('The Two Towers', 'desc1', '2022-12-04', 'M');
-  const dtask6 = task('Fellowship of the Ring', 'desc1', '2021-12-10', 'M');
-
-  dTodoList1.list.push(dtask1, dtask2, dtask3, dtask4);
-  dTodoList2.list.push(dtask5, dtask6);
-
-  projectsList.push(dTodoList1);
-  projectsList.push(dTodoList2);
-};
-
-const allTasksList = () => {
-  const cont = document.createElement('div');
-  const title = document.createElement('h3');
-
-  cont.classList.add('list-cont');
-  title.textContent = "All tasks";
-
-  cont.appendChild(title);
-  projectsListContainer.appendChild(cont);
-
-  title.addEventListener('click', (e) => {
-    e.preventDefault();
-    document.querySelector('.active').classList.remove('active');
-    cont.classList.add('active');
-    if (projectsList[0]) { renderAllTasks() };
-  });
-
-  return cont;
-}
-
 const renderAllTasks = (obj, editForm = null, editNum = null, editNumAddit = null) => {
   while (tasksList.firstChild) {
     tasksList.removeChild(tasksList.firstChild);
@@ -190,7 +115,7 @@ const renderAllTasks = (obj, editForm = null, editNum = null, editNumAddit = nul
     doneList.removeChild(doneList.firstChild);
   }
 
-   form.style.display = 'none'
+  form.style.display = 'none';
   for (let j = 0; j < projectsList.length; j += 1) {
     for (let i = 0; i < projectsList[j].list.length; i += 1) {
       const taskContainer = document.createElement('div');
@@ -249,7 +174,85 @@ const renderAllTasks = (obj, editForm = null, editNum = null, editNumAddit = nul
       appendElements();
     }
   }
-}
+};
+
+const allTasksList = () => {
+  const cont = document.createElement('div');
+  const title = document.createElement('h3');
+
+  cont.classList.add('list-cont');
+  title.textContent = 'All tasks';
+
+  cont.appendChild(title);
+  projectsListContainer.appendChild(cont);
+
+  title.addEventListener('click', (e) => {
+    e.preventDefault();
+    document.querySelector('.active').classList.remove('active');
+    cont.classList.add('active');
+    if (projectsList[0]) { renderAllTasks(); }
+  });
+
+  return cont;
+};
+
+
+const renderLists = (projectsList) => {
+  while (projectsListContainer.firstChild) {
+    projectsListContainer.removeChild(projectsListContainer.firstChild);
+  }
+
+  if (projectsList === undefined || projectsList.length === 0) {
+    return;
+  }
+
+  const allTaskHeader = allTasksList();
+  projectsListContainer.appendChild(allTaskHeader);
+
+  for (let i = 0; i < projectsList.length; i += 1) {
+    const cont = document.createElement('div');
+    const title = document.createElement('h3');
+    const deleteListBtn = addDeleteListBtn(projectsList, i, renderLists, renderTasks);
+
+    const appendElements = () => {
+      cont.classList.add('list-cont');
+      title.textContent = projectsList[i].title;
+
+      cont.append(title, deleteListBtn);
+      projectsListContainer.appendChild(cont);
+
+      if (projectsList[0] && i === 0) {
+        cont.classList.add('active');
+      }
+
+      title.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.querySelector('.active').classList.remove('active');
+        cont.classList.add('active');
+        renderTasks(projectsList[i]);
+      });
+    };
+    appendElements();
+  }
+};
+
+const defaultTasks = (projectsList) => {
+  const dtask1 = task('The Winds of Winter', 'Book 1', '2022-12-11', 'H', true);
+  const dtask2 = task('A Dream of Spring', 'Book 2', '2021-12-03', 'H');
+  const dtask3 = task('A Clash of Kings', 'Book 3', '2023-12-12', 'M');
+  const dtask4 = task('A Game of Thrones', 'Book 2', '2021-11-06', 'L');
+  const dTodoList1 = toDoList('A Song of Ice and Fire');
+  const dTodoList2 = toDoList('The Lord of the Rings');
+  const dtask5 = task('The Two Towers', 'desc1', '2022-12-04', 'M');
+  const dtask6 = task('Fellowship of the Ring', 'desc1', '2021-12-10', 'M');
+
+  dTodoList1.list.push(dtask1, dtask2, dtask3, dtask4);
+  dTodoList2.list.push(dtask5, dtask6);
+
+  projectsList.push(dTodoList1);
+  projectsList.push(dTodoList2);
+};
+
 
 submit.addEventListener('click', (e) => {
   e.preventDefault();
@@ -278,5 +281,5 @@ if (localStorage.getItem('projectsList') === null) {
 renderLists(projectsList);
 // renderTasks(projectsList[0]);
 renderAllTasks();
-document.querySelector(".active").classList.remove("active");
-document.getElementsByClassName("list-cont")[0].classList.add('active');
+document.querySelector('.active').classList.remove('active');
+document.getElementsByClassName('list-cont')[0].classList.add('active');

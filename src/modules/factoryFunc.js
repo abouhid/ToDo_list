@@ -1,5 +1,5 @@
 import { modal, openModal } from './helper';
-import * as UI from './ui'
+// import * as UI from './ui';
 
 const newListInput = document.getElementById('sidebar-input');
 

@@ -20,10 +20,9 @@ const formatDate = (date) => {
   const difference = differenceInDays(new Date(date), new Date());
   return `${difference} day(s) left`;
 };
- 
- 
-const openModal = (modal, content) => {
 
+
+const openModal = (modal, content) => {
   modal.style.display = 'block';
   modalMessage.textContent = content;
   modalContent.append(modalMessage, exitModal);
