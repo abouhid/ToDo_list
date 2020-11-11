@@ -113,8 +113,9 @@ const renderLists = (projectsList) => {
   if (projectsList === undefined || projectsList.length == 0) {
     return false;
   }
-
-  projectsListContainer.appendChild(allTasksList());
+  
+  const allTaskHeader = allTasksList();
+  projectsListContainer.appendChild(allTaskHeader);
   
   for (let i = 0; i < projectsList.length; i += 1) {
     const cont = document.createElement('div');
@@ -180,7 +181,7 @@ const allTasksList = () => {
   return cont;
 }
 
-const renderAllTasks = (editForm = null, editNum = null) => {
+const renderAllTasks = (obj, editForm = null, editNum = null) => {
   while (tasksList.firstChild) {
     tasksList.removeChild(tasksList.firstChild);
   }
@@ -272,7 +273,8 @@ if (localStorage.getItem('projectsList') === null) {
   defaultTasks(projectsList);
 }
 
-if (projectsList[0]) {
-  renderLists(projectsList);
-  renderTasks(projectsList[0]);
-};
+renderLists(projectsList);
+// renderTasks(projectsList[0]);
+renderAllTasks();
+document.querySelector(".active").classList.remove("active");
+document.getElementsByClassName("list-cont")[0].classList.add('active');
