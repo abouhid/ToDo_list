@@ -7,3 +7,8 @@
 - linters
 - PR
 - DONE
+
+
+
+- Handle form in All task page
+- Modal text repeating itself

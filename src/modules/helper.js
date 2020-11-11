@@ -3,6 +3,9 @@ import differenceInDays from 'date-fns/differenceInDays';
 const modal = document.querySelector('.modal');
 const advButton = document.querySelector('.advButton');
 const advOptions = document.querySelector('.advanced-options');
+const exitModal = document.querySelector('.exit-modal');
+const modalContent = document.querySelector('.modal-content');
+const modalMessage = document.createElement('p');
 
 const stylesToPriority = (obj) => {
   if (obj.textContent === 'H') {
@@ -17,11 +20,9 @@ const formatDate = (date) => {
   const difference = differenceInDays(new Date(date), new Date());
   return `${difference} day(s) left`;
 };
-
+ 
+ 
 const openModal = (modal, content) => {
-  const exitModal = document.querySelector('.exit-modal');
-  const modalContent = document.querySelector('.modal-content');
-  const modalMessage = document.createElement('p');
 
   modal.style.display = 'block';
   modalMessage.textContent = content;

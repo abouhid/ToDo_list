@@ -42,6 +42,7 @@ const renderTasks = (obj, editForm = null, editNum = null) => {
   while (doneList.firstChild) {
     doneList.removeChild(doneList.firstChild);
   }
+   form.style.display = 'block'
 
   if (projectsList === undefined || projectsList.length == 0) {
     return false;
@@ -189,6 +190,7 @@ const renderAllTasks = (obj, editForm = null, editNum = null, editNumAddit = nul
     doneList.removeChild(doneList.firstChild);
   }
 
+   form.style.display = 'none'
   for (let j = 0; j < projectsList.length; j += 1) {
     for (let i = 0; i < projectsList[j].list.length; i += 1) {
       const taskContainer = document.createElement('div');
