@@ -42,17 +42,22 @@ const renderTasks = (obj, editForm = null, editNum = null) => {
   while (doneList.firstChild) {
     doneList.removeChild(doneList.firstChild);
   }
+
+  if (projectsList === undefined || projectsList.length == 0) {
+    return false;
+  }
+
   for (let i = 0; i < obj.list.length; i += 1) {
-    const taskContainer = document.createElement('div');
-    taskContainer.classList.add('task-container');
-    const mainInfoContainer = document.createElement('div');
-    const additionalInfoContainer = document.createElement('div');
-    const title = document.createElement('h3');
-    const detailsContainer = document.createElement('div');
-    const desc = document.createElement('p');
-    const date = document.createElement('p');
-    const tooltipp = document.createElement('span');
-    const priority = document.createElement('p');
+    const taskContainer = document.createElement("div");
+    taskContainer.classList.add("task-container");
+    const mainInfoContainer = document.createElement("div");
+    const additionalInfoContainer = document.createElement("div");
+    const title = document.createElement("h3");
+    const detailsContainer = document.createElement("div");
+    const desc = document.createElement("p");
+    const date = document.createElement("p");
+    const tooltipp = document.createElement("span");
+    const priority = document.createElement("p");
     const showBtn = addShowDetailsBtn(detailsContainer);
     const deleteTaskBtn = addDeleteTaskBtn(obj, i, renderTasks);
     const checkbox = addCheckbox(obj, i, renderTasks);
@@ -63,19 +68,19 @@ const renderTasks = (obj, editForm = null, editNum = null) => {
       desc.textContent = obj.list[i].desc;
       date.textContent = obj.list[i].dueDate;
       tooltipp.textContent = formatDate(obj.list[i].dueDate);
-      date.classList.add('tooltipp');
-      tooltipp.classList.add('tooltipptext');
+      date.classList.add("tooltipp");
+      tooltipp.classList.add("tooltipptext");
       priority.textContent = obj.list[i].priority;
-      priority.classList.add(stylesToPriority(priority), 'p-1', 'rounded');
-      mainInfoContainer.classList.add('main-info');
-      additionalInfoContainer.classList.add('additional-info');
-      checkbox.classList.add('mr-2');
+      priority.classList.add(stylesToPriority(priority), "p-1", "rounded");
+      mainInfoContainer.classList.add("main-info");
+      additionalInfoContainer.classList.add("additional-info");
+      checkbox.classList.add("mr-2");
     };
     addContent();
 
     const appendElements = () => {
-      detailsContainer.style.display = 'none';
-      detailsContainer.classList.add('details-container', 'mt-2');
+      detailsContainer.style.display = "none";
+      detailsContainer.classList.add("details-container", "mt-2");
 
       date.appendChild(tooltipp);
       mainInfoContainer.append(checkbox, title);
@@ -84,7 +89,7 @@ const renderTasks = (obj, editForm = null, editNum = null) => {
         date,
         deleteTaskBtn,
         editBtn,
-        showBtn,
+        showBtn
       );
       taskContainer.append(mainInfoContainer, additionalInfoContainer);
 
@@ -103,6 +108,10 @@ const renderTasks = (obj, editForm = null, editNum = null) => {
 const renderLists = (projectsList) => {
   while (projectsListContainer.firstChild) {
     projectsListContainer.removeChild(projectsListContainer.firstChild);
+  }
+
+  if (projectsList === undefined || projectsList.length == 0) {
+    return false;
   }
 
   projectsListContainer.appendChild(allTasksList());
@@ -165,7 +174,7 @@ const allTasksList = () => {
     e.preventDefault();
     document.querySelector('.active').classList.remove('active');
     cont.classList.add('active');
-    renderAllTasks();
+    if (projectsList[0]) { renderAllTasks() };
   });
 
   return cont;
@@ -263,5 +272,7 @@ if (localStorage.getItem('projectsList') === null) {
   defaultTasks(projectsList);
 }
 
-renderLists(projectsList);
-renderTasks(projectsList[0]);
+if (projectsList[0]) {
+  renderLists(projectsList);
+  renderTasks(projectsList[0]);
+};

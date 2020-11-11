@@ -76,6 +76,11 @@ const addEditTaskForm = (obj, i, renderTasks, newTaskValidation) => {
     }
   });
 
+  cancel.addEventListener('click', (e) => {
+    e.preventDefault();
+    renderTasks(obj);
+  });
+
   return editForm;
 };
 
@@ -129,10 +134,9 @@ const addDeleteListBtn = (projectsList, i, renderLists, renderTasks) => {
 
   deleteBtn.addEventListener('click', () => {
     projectsList.splice(i, 1);
-    renderLists(projectsList);
-
-    renderTasks(projectsList[0]);
     saveLocalStorage();
+    renderLists(projectsList);
+    renderTasks(projectsList[0]);
   });
 
   return deleteBtn;
