@@ -84,7 +84,7 @@ const addEditTaskForm = (obj, i, renderTasks, newTaskValidation) => {
   return editForm;
 };
 
-const addEditTaskBtn = (obj, i, renderTasks) => {
+const addEditTaskBtn = (obj, i, renderTasks, j = null) => {
   const editBtn = document.createElement('span');
 
   editBtn.innerHTML = "<i class='fas fa-edit'></i>";
@@ -92,7 +92,7 @@ const addEditTaskBtn = (obj, i, renderTasks) => {
   editBtn.addEventListener('click', () => {
     console.log("123");
     const editForm = addEditTaskForm(obj, i, renderTasks, newTaskValidation);
-    renderTasks(obj, editForm, i);
+    renderTasks(obj, editForm, i, j);
   });
 
   return editBtn;

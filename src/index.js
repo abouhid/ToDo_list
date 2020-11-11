@@ -181,7 +181,7 @@ const allTasksList = () => {
   return cont;
 }
 
-const renderAllTasks = (obj, editForm = null, editNum = null) => {
+const renderAllTasks = (obj, editForm = null, editNum = null, editNumAddit = null) => {
   while (tasksList.firstChild) {
     tasksList.removeChild(tasksList.firstChild);
   }
@@ -204,7 +204,7 @@ const renderAllTasks = (obj, editForm = null, editNum = null) => {
       const showBtn = addShowDetailsBtn(detailsContainer);
       const deleteTaskBtn = addDeleteTaskBtn(projectsList[j], i, renderAllTasks);
       const checkbox = addCheckbox(projectsList[j], i, renderAllTasks);
-      const editBtn = addEditTaskBtn(projectsList[j], i, renderAllTasks);
+      const editBtn = addEditTaskBtn(projectsList[j], i, renderAllTasks, j);
 
       const addContent = () => {
         title.textContent = projectsList[j].list[i].title;
@@ -236,7 +236,7 @@ const renderAllTasks = (obj, editForm = null, editNum = null) => {
         );
         taskContainer.append(mainInfoContainer, additionalInfoContainer);
 
-        if (i === editNum) {
+        if (i === editNum && j === editNumAddit) {
           taskContainer.appendChild(editForm);
         }
 
