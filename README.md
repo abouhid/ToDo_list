@@ -16,7 +16,7 @@
 
 ## Live Demo
 
-[Live Demo Link](https://rawcdn.githack.com/abouhid/ToDo_list/a197af7d187ba32312cbb632062acbcec30b6fee/dist/index.html)
+[Live Demo Link](https://todoalexazamat.netlify.app/)
 
 ## Getting Started
 
