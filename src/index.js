@@ -105,6 +105,8 @@ const renderLists = (projectsList) => {
     projectsListContainer.removeChild(projectsListContainer.firstChild);
   }
 
+  projectsListContainer.appendChild(allTasksList());
+  
   for (let i = 0; i < projectsList.length; i += 1) {
     const cont = document.createElement('div');
     const title = document.createElement('h3');
@@ -149,6 +151,94 @@ const defaultTasks = (projectsList) => {
   projectsList.push(dTodoList2);
 };
 
+const allTasksList = () => {
+  const cont = document.createElement('div');
+  const title = document.createElement('h3');
+
+  cont.classList.add('list-cont');
+  title.textContent = "All tasks";
+
+  cont.appendChild(title);
+  projectsListContainer.appendChild(cont);
+
+  title.addEventListener('click', (e) => {
+    e.preventDefault();
+    document.querySelector('.active').classList.remove('active');
+    cont.classList.add('active');
+    renderAllTasks();
+  });
+
+  return cont;
+}
+
+const renderAllTasks = (editForm = null, editNum = null) => {
+  while (tasksList.firstChild) {
+    tasksList.removeChild(tasksList.firstChild);
+  }
+  while (doneList.firstChild) {
+    doneList.removeChild(doneList.firstChild);
+  }
+
+  for (let j = 0; j < projectsList.length; j += 1) {
+    for (let i = 0; i < projectsList[j].list.length; i += 1) {
+      const taskContainer = document.createElement('div');
+      taskContainer.classList.add('task-container');
+      const mainInfoContainer = document.createElement('div');
+      const additionalInfoContainer = document.createElement('div');
+      const title = document.createElement('h3');
+      const detailsContainer = document.createElement('div');
+      const desc = document.createElement('p');
+      const date = document.createElement('p');
+      const tooltipp = document.createElement('span');
+      const priority = document.createElement('p');
+      const showBtn = addShowDetailsBtn(detailsContainer);
+      const deleteTaskBtn = addDeleteTaskBtn(projectsList[j], i, renderAllTasks);
+      const checkbox = addCheckbox(projectsList[j], i, renderAllTasks);
+      const editBtn = addEditTaskBtn(projectsList[j], i, renderAllTasks);
+
+      const addContent = () => {
+        title.textContent = projectsList[j].list[i].title;
+        desc.textContent = projectsList[j].list[i].desc;
+        date.textContent = projectsList[j].list[i].dueDate;
+        tooltipp.textContent = formatDate(projectsList[j].list[i].dueDate);
+        date.classList.add('tooltipp');
+        tooltipp.classList.add('tooltipptext');
+        priority.textContent = projectsList[j].list[i].priority;
+        priority.classList.add(stylesToPriority(priority), 'p-1', 'rounded');
+        mainInfoContainer.classList.add('main-info');
+        additionalInfoContainer.classList.add('additional-info');
+        checkbox.classList.add('mr-2');
+      };
+      addContent();
+
+      const appendElements = () => {
+        detailsContainer.style.display = 'none';
+        detailsContainer.classList.add('details-container', 'mt-2');
+
+        date.appendChild(tooltipp);
+        mainInfoContainer.append(checkbox, title);
+        additionalInfoContainer.append(
+          priority,
+          date,
+          deleteTaskBtn,
+          editBtn,
+          showBtn,
+        );
+        taskContainer.append(mainInfoContainer, additionalInfoContainer);
+
+        if (i === editNum) {
+          taskContainer.appendChild(editForm);
+        }
+
+        detailsContainer.appendChild(desc);
+        taskContainer.appendChild(detailsContainer);
+        appendDone(projectsList[j], i, taskContainer, doneList, tasksList);
+      };
+      appendElements();
+    }
+  }
+}
+
 submit.addEventListener('click', (e) => {
   e.preventDefault();
   const active = document.querySelector('.active').firstChild.innerText;
@@ -167,7 +257,6 @@ sidebarSubmit.addEventListener('click', (e) => {
     renderTasks(projectsList[0]);
   }
 });
-
 
 if (localStorage.getItem("projectsList") === null) {
   defaultTasks(projectsList);
