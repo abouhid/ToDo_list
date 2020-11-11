@@ -1,6 +1,5 @@
 import './styles/reset.css';
 import './styles/style.css';
-import logo from './images/logo1.png';
 
 import {
   addEditTaskBtn,
@@ -28,6 +27,7 @@ import {
   newListValidation,
   addShowDetailsBtn,
   modal,
+  addIcon,
 } from './modules/helper';
 
 
@@ -35,13 +35,10 @@ const form = document.getElementById('task-form');
 const submit = document.getElementById('submit');
 const tasksList = document.querySelector('.tasks-list');
 const doneList = document.querySelector('.done-list');
-const sidebar = document.querySelector('.sidebar');
 const sidebarForm = document.getElementById('sidebar-form');
 const sidebarSubmit = document.getElementById('sidebar-submit');
 const projectsListContainer = document.querySelector('.project-names');
-const logoImg = new Image();
-logoImg.src = logo;
-sidebar.prepend(logoImg);
+
 
 const renderTasks = (obj, editForm = null, editNum = null) => {
   while (tasksList.firstChild) {
@@ -286,12 +283,6 @@ if (localStorage.getItem('projectsList') === null) {
   defaultTasks(projectsList);
 }
 
-const addIcon = () => {
-  const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
-  link.rel = 'shortcut icon';
-  link.href = logo;
-  document.getElementsByTagName('head')[0].appendChild(link);
-};
 
 addIcon();
 renderLists(projectsList);

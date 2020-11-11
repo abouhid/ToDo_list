@@ -118,7 +118,7 @@ const addCheckbox = (obj, i, renderTasks) => {
   checkbox.checked = obj.list[i].status;
 
   checkbox.addEventListener('change', () => {
-    obj.list[i].status = !!checkbox.checked; // why here two (!!)
+    obj.list[i].status = !!checkbox.checked;
     renderTasks(obj);
     saveLocalStorage();
   });

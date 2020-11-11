@@ -1,4 +1,5 @@
 import differenceInDays from 'date-fns/differenceInDays';
+import logo from '../images/logo1.png';
 
 const modal = document.querySelector('.modal');
 const advButton = document.querySelector('.advButton');
@@ -6,6 +7,10 @@ const advOptions = document.querySelector('.advanced-options');
 const exitModal = document.querySelector('.exit-modal');
 const modalContent = document.querySelector('.modal-content');
 const modalMessage = document.createElement('p');
+const sidebar = document.querySelector('.sidebar');
+const logoImg = new Image();
+logoImg.src = logo;
+sidebar.prepend(logoImg);
 
 const stylesToPriority = (obj) => {
   if (obj.textContent === 'H') {
@@ -77,7 +82,6 @@ const addShowDetailsBtn = (container) => {
 };
 
 advButton.addEventListener('click', () => {
-  // e.preventDefault();
   if (advOptions.style.display === 'block') {
     advOptions.style.display = 'none';
     advButton.innerText = 'Advanced Options';
@@ -86,6 +90,13 @@ advButton.addEventListener('click', () => {
     advButton.textContent = 'Hide Options';
   }
 });
+const addIcon = () => {
+  const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+  link.rel = 'shortcut icon';
+  link.href = logo;
+  document.getElementsByTagName('head')[0].appendChild(link);
+};
+
 
 export {
   stylesToPriority,
@@ -96,4 +107,5 @@ export {
   newListValidation,
   addShowDetailsBtn,
   modal,
+  addIcon,
 };
