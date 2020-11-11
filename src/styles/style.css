@@ -1,0 +1,260 @@
+body {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #353531;
+  background-image: linear-gradient(to right, #353531 50%, #ec4e20 50%);
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+  display: flex;
+  justify-content: space-between;
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: fit-content; /* Could be more or less, depending on screen size */
+}
+
+.exit-modal {
+  align-self: flex-end;
+  margin-top: 9%;
+}
+
+.button {
+  background-color: #353531;
+}
+
+.button:hover {
+  background-color: #fff;
+  color: #ec4e20;
+}
+
+.nav-panel {
+  display: flex;
+  flex-direction: column;
+  background-color: #ec4e20;
+  padding: 2% 4%;
+  width: 100%;
+}
+
+.sidebar {
+  padding: 2%;
+  width: 300px;
+  color: white;
+  background-color: #353531;
+  min-height: 100vh;
+  min-width: 25%;
+}
+
+@media (max-width: 500px) {
+  .sidebar {
+    width: 15%;
+  }
+
+  .sidebar h3 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .sidebar .list-cont {
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+}
+
+.sidebar img {
+  width: 70px;
+  margin: 0 auto;
+  display: flex;
+}
+
+.list-cont {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5%;
+  cursor: pointer;
+}
+
+.list-cont h3 {
+  width: 100%;
+  padding: 5%;
+  line-height: 20px;
+}
+
+.active {
+  background-color: #ec4e20;
+  border-radius: 5px;
+}
+
+#task-form {
+  display: none;
+  margin-bottom: 2%;
+  margin-top: 4%;
+}
+
+.adv-input {
+  display: inline;
+}
+
+.advanced-options {
+  display: none;
+}
+
+.tasks-list,
+.done-list {
+  border-radius: 5px;
+}
+
+.tasks-list > div,
+.done-list > div {
+  background-color: #f8f8f8;
+  border-radius: 5px;
+  padding: 2%;
+  margin-bottom: 2%;
+}
+
+.done-list > div {
+  opacity: 0.7;
+  text-decoration: line-through;
+}
+
+.date-and-priority {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.date-and-priority input {
+  margin-right: 12px;
+  height: 30px;
+}
+
+.task-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.task-container .main-info,
+.task-container .additional-info {
+  display: flex;
+  align-items: center;
+}
+
+.task-container .additional-info > * {
+  margin-left: 12px;
+}
+
+.check-task {
+  zoom: 1.8;
+  margin-top: 0 !important;
+}
+
+.task-container form {
+  margin: 2% 0;
+  width: 100%;
+}
+
+.details-container {
+  width: 100%;
+  padding: 2%;
+  background-color: #353531;
+  color: #f8f8f8;
+  border-radius: 5px;
+}
+
+.extra-inputs {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (max-width: 767px) {
+  .extra-inputs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .custom-select input {
+    margin-left: 0 !important;
+  }
+}
+
+.task-container p.high {
+  background-color: rgba(223, 39, 39, 0.9);
+  margin-left: 0;
+}
+
+.task-container p.medium {
+  background-color: rgb(242, 255, 0, 0.8);
+  margin-left: 0;
+}
+
+.task-container p.low {
+  background-color: rgba(97, 223, 39, 0.4);
+  margin-left: 0;
+}
+
+.tooltipp {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* tooltipp text */
+.tooltipp .tooltipptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  /* Position the tooltipp text */
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+
+  /* Fade in tooltipp */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* tooltipp arrow */
+.tooltipp .tooltipptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltipp text when you mouse over the tooltipp container */
+.tooltipp:hover .tooltipptext {
+  visibility: visible;
+  opacity: 1;
+}

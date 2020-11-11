@@ -1,0 +1,14 @@
+- minimum responsiveness
+- append multiple values at once
+- method to clean instead of while loop
+- devide code into modules
+- localStorage
+- readme
+- linters
+- PR
+- DONE
+
+
+
+- Handle form in All task page
+- Modal text repeating itself
