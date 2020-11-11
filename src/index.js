@@ -286,8 +286,15 @@ if (localStorage.getItem('projectsList') === null) {
   defaultTasks(projectsList);
 }
 
+const addIcon = () => {
+  const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+  link.rel = 'shortcut icon';
+  link.href = logo;
+  document.getElementsByTagName('head')[0].appendChild(link);
+};
+
+addIcon();
 renderLists(projectsList);
-// renderTasks(projectsList[0]);
 renderAllTasks();
 document.querySelector('.active').classList.remove('active');
 document.getElementsByClassName('list-cont')[0].classList.add('active');
