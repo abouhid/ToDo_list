@@ -1,5 +1,6 @@
-import './styles/reset.css'
-import './styles/style.css'
+import './styles/reset.css';
+import './styles/style.css';
+import logo from './images/logo1.png';
 
 import {
   addEditTaskBtn,
@@ -34,10 +35,13 @@ const form = document.getElementById('task-form');
 const submit = document.getElementById('submit');
 const tasksList = document.querySelector('.tasks-list');
 const doneList = document.querySelector('.done-list');
-
+const sidebar = document.querySelector('.sidebar');
 const sidebarForm = document.getElementById('sidebar-form');
 const sidebarSubmit = document.getElementById('sidebar-submit');
 const projectsListContainer = document.querySelector('.project-names');
+const logoImg = new Image();
+logoImg.src = logo;
+sidebar.prepend(logoImg);
 
 const renderTasks = (obj, editForm = null, editNum = null) => {
   while (tasksList.firstChild) {
