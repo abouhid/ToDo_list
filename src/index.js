@@ -1,3 +1,6 @@
+import './styles/reset.css'
+import './styles/style.css'
+
 import {
   addEditTaskBtn,
   addDeleteTaskBtn,
@@ -25,6 +28,7 @@ import {
   addShowDetailsBtn,
   modal,
 } from './modules/helper';
+
 
 const form = document.getElementById('task-form');
 const submit = document.getElementById('submit');
