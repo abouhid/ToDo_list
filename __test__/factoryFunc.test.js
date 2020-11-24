@@ -37,7 +37,6 @@ describe('addNewTask function', () => {
   `;
     const form = document.createElement('form');
     addNewTask(list1, myMock, form);
-    console.log(list1.list);
     expect(list1.list).toEqual([{
       desc: 'Book 1', dueDate: '2022-12-11', priority: 'H', status: false, title: 'The Winds of Winter',
     }]);
@@ -45,7 +44,7 @@ describe('addNewTask function', () => {
 });
 
 describe('addNewList function', () => {
-  test.only('should create a new task', () => {
+  test('should create a new task', () => {
     const projectsList = [];
     document.body.innerHTML = `
     <input id="sidebar-input" value="The Winds of Winter"/>
@@ -53,7 +52,6 @@ describe('addNewList function', () => {
     const form = document.createElement('form');
     addNewList(projectsList, form);
 
-    console.log(projectsList);
     expect(projectsList).toEqual([{
       title: 'The Winds of Winter', list: [],
     }]);
