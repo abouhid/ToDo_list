@@ -85,13 +85,13 @@ const addShowDetailsBtn = (container) => {
 };
 
 const advButtonEvent = (advButton, advOptions) => {
-  advButton.addEventListener("click", () => {
-    if (advOptions.style.display === "block") {
-      advOptions.style.display = "none";
-      advButton.innerText = "Advanced Options";
+  advButton.addEventListener('click', () => {
+    if (advOptions.style.display === 'block') {
+      advOptions.style.display = 'none';
+      advButton.innerText = 'Advanced Options';
     } else {
-      advOptions.style.display = "block";
-      advButton.textContent = "Hide Options";
+      advOptions.style.display = 'block';
+      advButton.textContent = 'Hide Options';
     }
   });
 };
