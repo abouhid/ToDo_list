@@ -30,6 +30,7 @@ const addNewTask = (obj, newTaskValidation, form) => {
 };
 
 const addNewList = (obj, sidebarForm) => {
+  const newListInput = document.getElementById('sidebar-input');
   const newList = toDoList(newListInput.value);
   sidebarForm.reset();
   obj.unshift(newList);
