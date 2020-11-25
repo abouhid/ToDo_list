@@ -83,6 +83,7 @@ const addShowDetailsBtn = (container) => {
 };
 
 const advButtonEvent = (advButton, advOptions) => {
+  
   advButton.addEventListener('click', () => {
     if (advOptions.style.display === 'block') {
       advOptions.style.display = 'none';

@@ -206,7 +206,6 @@ const allTasksList = () => {
   return cont;
 };
 
-
 const renderLists = (projectsList) => {
   while (projectsListContainer.firstChild) {
     projectsListContainer.removeChild(projectsListContainer.firstChild);
@@ -263,35 +262,45 @@ const defaultTasks = (projectsList) => {
   projectsList.push(dTodoList2);
 };
 
+const startUp = () => {
+  advButtonEvent(advButton, advOptions);
+  addLogo(sidebar);
+  addIcon();
+  renderLists(projectsList);
+  renderAllTasks();
+  document.querySelector('.active').classList.remove('active');
+  document.getElementsByClassName('list-cont')[0].classList.add('active');
 
-submit.addEventListener('click', (e) => {
-  e.preventDefault();
-  const active = document.querySelector('.active').firstChild.innerText;
-  const currentProject = projectsList.filter((obj) => obj.title === active)[0];
-  addNewTask(currentProject, newTaskValidation, form);
-  saveLocalStorage();
-  renderTasks(currentProject);
-});
-
-sidebarSubmit.addEventListener('click', (e) => {
-  e.preventDefault();
-  if (newListValidation(modal, newListInput.value, openModal)) {
-    addNewList(projectsList, sidebarForm);
+  submit.addEventListener('click', (e) => {
+    e.preventDefault();
+    const active = document.querySelector('.active').firstChild.innerText;
+    const currentProject = projectsList.filter((obj) => obj.title === active)[0];
+    addNewTask(currentProject, newTaskValidation, form);
     saveLocalStorage();
-    renderLists(projectsList);
-    renderTasks(projectsList[0]);
+    renderTasks(currentProject);
+  });
+  
+  sidebarSubmit.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (newListValidation(modal, newListInput.value, openModal)) {
+      addNewList(projectsList, sidebarForm);
+      saveLocalStorage();
+      renderLists(projectsList);
+      renderTasks(projectsList[0]);
+    }
+  });
+
+  if (localStorage.getItem('projectsList') === null) {
+    defaultTasks(projectsList);
   }
-});
-
-
-if (localStorage.getItem('projectsList') === null) {
-  defaultTasks(projectsList);
 }
 
-advButtonEvent(advButton, advOptions);
-addLogo(sidebar);
-addIcon();
-renderLists(projectsList);
-renderAllTasks();
-document.querySelector('.active').classList.remove('active');
-document.getElementsByClassName('list-cont')[0].classList.add('active');
+startUp();
+
+export {
+  renderTasks,
+  renderAllTasks,
+  allTasksList,
+  renderLists,
+  startUp,
+}
