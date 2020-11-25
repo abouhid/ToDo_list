@@ -31,9 +31,9 @@ const formatDate = (date) => {
 
 
 const openModal = (modal, content) => {
-  const exitModal = document.querySelector(".exit-modal");
-  const modalContent = document.querySelector(".modal-content");
-  const modalMessage = document.createElement("p");
+  const exitModal = document.querySelector('.exit-modal');
+  const modalContent = document.querySelector('.modal-content');
+  const modalMessage = document.createElement('p');
 
   modal.style.display = 'block';
   modalMessage.textContent = content;

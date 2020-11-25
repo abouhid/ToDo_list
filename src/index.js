@@ -29,7 +29,7 @@ import {
   modal,
   addIcon,
   addLogo,
-  advButton,
+  advButtonEvent,
 } from "./modules/helper";
 
 
