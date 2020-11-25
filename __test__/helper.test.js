@@ -23,7 +23,7 @@ describe('Add logo function', () => {
 });
 
 describe('AddIcon function', () => {
-  test('should add logo to the project', () => {
+  test('should add favicon to the project', () => {
     addIcon();
     expect(document.getElementsByTagName('head')[0].innerHTML).toEqual('<link rel="shortcut icon" href="test-file-stub">');
   });
@@ -47,14 +47,13 @@ describe('formatDate function', () => {
 
 describe('appendDone function', () => {
   test('should append done/open tasks to its correct container', () => {
-    const obj = {list: [{status: true}]}
+    const obj = { list: [{ status: true }] };
 
     document.body.innerHTML = `<div class="task-list">
         </div><div class="done-list">
-        </div>        
-     `;
+        </div>`;
     const taskContainer = document.createElement('div');
-    taskContainer.textContent = 'New Task'
+    taskContainer.textContent = 'New Task';
     const doneList = document.querySelector('.done-list');
     const taskList = document.querySelector('.task-list');
 
@@ -83,7 +82,7 @@ describe('openModal function', () => {
 describe('newTaskValidation function', () => {
   const modal = document.querySelector('.modal');
   const myMock = jest.fn();
-  document.body.innerHTML = `<div class="modal"></div>`;
+  document.body.innerHTML = '<div class="modal"></div>';
   test('should check if the task input is empty', () => {
     expect(newTaskValidation(modal, '', myMock)).toBe(false);
   });
@@ -94,7 +93,7 @@ describe('newTaskValidation function', () => {
 
 
 describe('newListValidation function', () => {
-  document.body.innerHTML = `<span class="modal"></span>`;
+  document.body.innerHTML = '<span class="modal"></span>';
   const myMock = jest.fn();
   const modal = document.querySelector('.modal');
   test('should check if the List input is empty', () => {
@@ -103,10 +102,10 @@ describe('newListValidation function', () => {
   test('should check if the List input is filled', () => {
     expect(newListValidation(modal, 'test', myMock)).toBe(true);
   });
-})
+});
 
 describe('addShowDetailsBtn function', () => {
-  document.body.innerHTML = `<div class="container"></div>`;
+  document.body.innerHTML = '<div class="container"></div>';
   const container = document.querySelector('.container');
   test('should return the chevron button', () => {
     expect(addShowDetailsBtn(container).innerHTML).toEqual('<i class="fas fa-chevron-down"></i>');
@@ -114,15 +113,14 @@ describe('addShowDetailsBtn function', () => {
 });
 
 describe('advButtonEvent function', () => {
-  document.body.innerHTML = `<div class="advOptions"></div><div class="advButton"></div>`;
+  document.body.innerHTML = '<div class="advOptions"></div><div class="advButton"></div>';
   const advOptions = document.querySelector('.advOptions');
   const advButton = document.querySelector('.advButton');
-  advOptions.style.display = 'block'
+  advOptions.style.display = 'block';
   test('should return the chevron button', () => {
-    advButtonEvent(advButton, advOptions)
-    advButton.click()
+    advButtonEvent(advButton, advOptions);
+    advButton.click();
     expect(advOptions.style.display).toEqual('none');
     expect(advButton.innerText).toEqual('Advanced Options');
-
   });
 });

@@ -30,7 +30,7 @@ import {
   addIcon,
   addLogo,
   advButtonEvent,
-} from "./modules/helper";
+} from './modules/helper';
 
 
 const form = document.getElementById('task-form');
@@ -40,9 +40,9 @@ const doneList = document.querySelector('.done-list');
 const sidebarForm = document.getElementById('sidebar-form');
 const sidebarSubmit = document.getElementById('sidebar-submit');
 const projectsListContainer = document.querySelector('.project-names');
-const sidebar = document.querySelector(".sidebar");
-const advButton = document.querySelector(".advButton");
-const advOptions = document.querySelector(".advanced-options");
+const sidebar = document.querySelector('.sidebar');
+const advButton = document.querySelector('.advButton');
+const advOptions = document.querySelector('.advanced-options');
 
 
 const renderTasks = (obj, editForm = null, editNum = null) => {

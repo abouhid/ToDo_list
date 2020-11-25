@@ -2,7 +2,6 @@ import differenceInDays from 'date-fns/differenceInDays';
 import logo from '../images/logo1.png';
 
 const modal = document.querySelector('.modal');
-const sidebar = document.querySelector('.sidebar');
 
 const addLogo = (sidebar) => {
   const logoImg = new Image();
