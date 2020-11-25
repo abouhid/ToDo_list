@@ -2,11 +2,6 @@ import differenceInDays from 'date-fns/differenceInDays';
 import logo from '../images/logo1.png';
 
 const modal = document.querySelector('.modal');
-// const advButton = document.querySelector('.advButton');
-// const advOptions = document.querySelector('.advanced-options');
-// const exitModal = document.querySelector('.exit-modal');
-// const modalContent = document.querySelector('.modal-content');
-// const modalMessage = document.createElement('p');
 const sidebar = document.querySelector('.sidebar');
 
 const addLogo = (sidebar) => {
