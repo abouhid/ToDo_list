@@ -1,7 +1,7 @@
 import './styles/reset.css';
 import './styles/style.css';
 
-import { // eslint-disable-line import/no-cycle
+import {
   addEditTaskBtn,
   addDeleteTaskBtn,
   addCheckbox,
@@ -203,17 +203,16 @@ const allTasksList = (projectsListContainer, projectsList) => {
     e.preventDefault();
     document.querySelector('.active').classList.remove('active');
     cont.classList.add('active');
-    if (projectsList[0]) { renderAllTasks(projectsList[0], tasksList, doneList, form, projectsList); }
+    if (projectsList[0]) {
+      renderAllTasks(projectsList[0],
+        tasksList, doneList, form, projectsList);
+    }
   });
 
   return cont;
 };
 
-<<<<<<< HEAD
-const renderLists = (projectsList) => {
-=======
 const renderLists = (projectsList, projectsListContainer, allTasksList) => {
->>>>>>> 5b1b5ecd34062f25662c2b9a95326d574d6edd40
   while (projectsListContainer.firstChild) {
     projectsListContainer.removeChild(projectsListContainer.firstChild);
   }
@@ -269,26 +268,6 @@ const defaultTasks = (projectsList) => {
   projectsList.push(dTodoList2);
 };
 
-<<<<<<< HEAD
-const startUp = () => {
-  advButtonEvent(advButton, advOptions);
-  addLogo(sidebar);
-  addIcon();
-  renderLists(projectsList);
-  renderAllTasks();
-  document.querySelector('.active').classList.remove('active');
-  document.getElementsByClassName('list-cont')[0].classList.add('active');
-
-  submit.addEventListener('click', (e) => {
-    e.preventDefault();
-    const active = document.querySelector('.active').firstChild.innerText;
-    const currentProject = projectsList.filter((obj) => obj.title === active)[0];
-    addNewTask(currentProject, newTaskValidation, form);
-    saveLocalStorage();
-    renderTasks(currentProject);
-  });
-  
-=======
 document.addEventListener('DOMContentLoaded', () => {
   submit.addEventListener('click', (e) => {
     e.preventDefault();
@@ -299,26 +278,11 @@ document.addEventListener('DOMContentLoaded', () => {
     renderTasks(currentProject, tasksList, doneList, form, projectsList);
   });
 
->>>>>>> 5b1b5ecd34062f25662c2b9a95326d574d6edd40
   sidebarSubmit.addEventListener('click', (e) => {
     e.preventDefault();
     if (newListValidation(modal, newListInput.value, openModal)) {
       addNewList(projectsList, sidebarForm);
       saveLocalStorage();
-<<<<<<< HEAD
-      renderLists(projectsList);
-      renderTasks(projectsList[0]);
-    }
-  });
-
-  if (localStorage.getItem('projectsList') === null) {
-    defaultTasks(projectsList);
-  }
-}
-
-startUp();
-
-=======
       renderLists(projectsList, projectsListContainer, allTasksList);
       renderTasks(projectsList[0], tasksList, doneList, form, projectsList);
     }
@@ -339,16 +303,11 @@ startUp();
 });
 
 
->>>>>>> 5b1b5ecd34062f25662c2b9a95326d574d6edd40
 export {
   renderTasks,
   renderAllTasks,
   allTasksList,
   renderLists,
-<<<<<<< HEAD
-  startUp,
-}
-=======
   form,
   submit,
   tasksList,
@@ -360,4 +319,3 @@ export {
   advButton,
   advOptions,
 };
->>>>>>> 5b1b5ecd34062f25662c2b9a95326d574d6edd40

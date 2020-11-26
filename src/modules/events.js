@@ -1,5 +1,4 @@
 import { newTaskValidation, modal, openModal } from './helper';
-// import { allTasksList } from '../index'; // eslint-disable-line import/no-cycle
 
 const projectsList = JSON.parse(localStorage.getItem('projectsList')) || [];
 const tasksList = document.querySelector('.tasks-list');
