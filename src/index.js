@@ -1,7 +1,7 @@
 import './styles/reset.css';
 import './styles/style.css';
 
-import {
+import { // eslint-disable-line import/no-cycle
   addEditTaskBtn,
   addDeleteTaskBtn,
   addCheckbox,
@@ -45,7 +45,8 @@ const advButton = document.querySelector('.advButton');
 const advOptions = document.querySelector('.advanced-options');
 
 
-const renderTasks = (obj, editForm = null, editNum = null) => {
+const renderTasks = (obj, tasksList, doneList, form, projectsList,
+  editForm = null, editNum = null) => {
   while (tasksList.firstChild) {
     tasksList.removeChild(tasksList.firstChild);
   }
@@ -61,6 +62,7 @@ const renderTasks = (obj, editForm = null, editNum = null) => {
 
   for (let i = 0; i < obj.list.length; i += 1) {
     const taskContainer = document.createElement('div');
+
     taskContainer.classList.add('task-container');
     const mainInfoContainer = document.createElement('div');
     const additionalInfoContainer = document.createElement('div');
@@ -117,7 +119,8 @@ const renderTasks = (obj, editForm = null, editNum = null) => {
   }
 };
 
-const renderAllTasks = (obj, editForm = null, editNum = null, editNumAddit = null) => {
+const renderAllTasks = (obj, tasksList, doneList, form, projectsList,
+  editForm = null, editNum = null, editNumAddit = null) => {
   while (tasksList.firstChild) {
     tasksList.removeChild(tasksList.firstChild);
   }
@@ -186,7 +189,7 @@ const renderAllTasks = (obj, editForm = null, editNum = null, editNumAddit = nul
   }
 };
 
-const allTasksList = () => {
+const allTasksList = (projectsListContainer, projectsList) => {
   const cont = document.createElement('div');
   const title = document.createElement('h3');
 
@@ -200,14 +203,13 @@ const allTasksList = () => {
     e.preventDefault();
     document.querySelector('.active').classList.remove('active');
     cont.classList.add('active');
-    if (projectsList[0]) { renderAllTasks(); }
+    if (projectsList[0]) { renderAllTasks(projectsList[0], tasksList, doneList, form, projectsList); }
   });
 
   return cont;
 };
 
-
-const renderLists = (projectsList) => {
+const renderLists = (projectsList, projectsListContainer, allTasksList) => {
   while (projectsListContainer.firstChild) {
     projectsListContainer.removeChild(projectsListContainer.firstChild);
   }
@@ -216,7 +218,7 @@ const renderLists = (projectsList) => {
     return;
   }
 
-  const allTaskHeader = allTasksList();
+  const allTaskHeader = allTasksList(projectsListContainer, projectsList);
   projectsListContainer.appendChild(allTaskHeader);
 
   for (let i = 0; i < projectsList.length; i += 1) {
@@ -239,7 +241,7 @@ const renderLists = (projectsList) => {
         e.preventDefault();
         document.querySelector('.active').classList.remove('active');
         cont.classList.add('active');
-        renderTasks(projectsList[i]);
+        renderTasks(projectsList[i], tasksList, doneList, form, projectsList);
       });
     };
     appendElements();
@@ -263,35 +265,54 @@ const defaultTasks = (projectsList) => {
   projectsList.push(dTodoList2);
 };
 
-
-submit.addEventListener('click', (e) => {
-  e.preventDefault();
-  const active = document.querySelector('.active').firstChild.innerText;
-  const currentProject = projectsList.filter((obj) => obj.title === active)[0];
-  addNewTask(currentProject, newTaskValidation, form);
-  saveLocalStorage();
-  renderTasks(currentProject);
-});
-
-sidebarSubmit.addEventListener('click', (e) => {
-  e.preventDefault();
-  if (newListValidation(modal, newListInput.value, openModal)) {
-    addNewList(projectsList, sidebarForm);
+document.addEventListener('DOMContentLoaded', () => {
+  submit.addEventListener('click', (e) => {
+    e.preventDefault();
+    const active = document.querySelector('.active').firstChild.innerText;
+    const currentProject = projectsList.filter((obj) => obj.title === active)[0];
+    addNewTask(currentProject, newTaskValidation, form);
     saveLocalStorage();
-    renderLists(projectsList);
-    renderTasks(projectsList[0]);
+    renderTasks(currentProject, tasksList, doneList, form, projectsList);
+  });
+
+  sidebarSubmit.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (newListValidation(modal, newListInput.value, openModal)) {
+      addNewList(projectsList, sidebarForm);
+      saveLocalStorage();
+      renderLists(projectsList, projectsListContainer, allTasksList);
+      renderTasks(projectsList[0], tasksList, doneList, form, projectsList);
+    }
+  });
+
+
+  if (localStorage.getItem('projectsList') === null) {
+    defaultTasks(projectsList);
   }
+
+  advButtonEvent(advButton, advOptions);
+  addLogo(sidebar);
+  addIcon();
+  renderLists(projectsList, projectsListContainer, allTasksList);
+  renderAllTasks();
+  document.querySelector('.active').classList.remove('active');
+  document.getElementsByClassName('list-cont')[0].classList.add('active');
 });
 
 
-if (localStorage.getItem('projectsList') === null) {
-  defaultTasks(projectsList);
-}
-
-advButtonEvent(advButton, advOptions);
-addLogo(sidebar);
-addIcon();
-renderLists(projectsList);
-renderAllTasks();
-document.querySelector('.active').classList.remove('active');
-document.getElementsByClassName('list-cont')[0].classList.add('active');
+export {
+  renderTasks,
+  renderAllTasks,
+  allTasksList,
+  renderLists,
+  form,
+  submit,
+  tasksList,
+  doneList,
+  sidebarForm,
+  sidebarSubmit,
+  projectsListContainer,
+  sidebar,
+  advButton,
+  advOptions,
+};
