@@ -224,7 +224,7 @@ const renderLists = (projectsList, projectsListContainer, allTasksList) => {
   for (let i = 0; i < projectsList.length; i += 1) {
     const cont = document.createElement('div');
     const title = document.createElement('h3');
-    const deleteListBtn = addDeleteListBtn(projectsList, i, renderLists, renderTasks);
+    const deleteListBtn = addDeleteListBtn(projectsList, i, renderLists, renderTasks, allTasksList);
 
     const appendElements = () => {
       cont.classList.add('list-cont');
