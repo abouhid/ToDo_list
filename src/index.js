@@ -294,7 +294,7 @@ document.addEventListener('DOMContentLoaded', () => {
   addLogo(sidebar);
   addIcon();
   renderLists(projectsList, projectsListContainer, allTasksList);
-  renderAllTasks();
+  renderAllTasks(projectsList[0], tasksList, doneList, form, projectsList);
   document.querySelector('.active').classList.remove('active');
   document.getElementsByClassName('list-cont')[0].classList.add('active');
 });

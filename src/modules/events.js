@@ -1,5 +1,5 @@
 import { newTaskValidation, modal, openModal } from './helper';
-import { allTasksList } from '../index'; // eslint-disable-line import/no-cycle
+// import { allTasksList } from '../index'; // eslint-disable-line import/no-cycle
 
 const projectsList = JSON.parse(localStorage.getItem('projectsList')) || [];
 const tasksList = document.querySelector('.tasks-list');
@@ -83,7 +83,7 @@ const addEditTaskForm = (obj, i, renderTasks, newTaskValidation) => {
 
   cancel.addEventListener('click', (e) => {
     e.preventDefault();
-    renderTasks(obj);
+    renderTasks(obj, tasksList, doneList, form, projectsList);
   });
 
   return editForm;
@@ -131,7 +131,7 @@ const addCheckbox = (obj, i, renderTasks) => {
   return checkbox;
 };
 
-const addDeleteListBtn = (projectsList, i, renderLists, renderTasks) => {
+const addDeleteListBtn = (projectsList, i, renderLists, renderTasks, allTasksList) => {
   const deleteBtn = document.createElement('span');
 
   deleteBtn.innerHTML = "<i class='fas fa-trash-alt'></i>";
