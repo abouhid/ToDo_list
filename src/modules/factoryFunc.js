@@ -16,8 +16,7 @@ const addNewTask = (obj, newTaskValidation, form) => {
   const taskTitleInput = document.querySelector('#task-input').value;
   const taskDescInput = document.getElementById('task-desc-input').value;
   const taskDateInput = document.getElementById('task-date-input').value;
-  const taskPriorityInput = document.getElementById('task-priority-input')
-    .value;
+  const taskPriorityInput = document.getElementById('task-priority-input').value;
   if (newTaskValidation(modal, taskTitleInput, openModal)) {
     const newTask = task(
       taskTitleInput,
@@ -31,6 +30,7 @@ const addNewTask = (obj, newTaskValidation, form) => {
 };
 
 const addNewList = (obj, sidebarForm) => {
+  const newListInput = document.getElementById('sidebar-input');
   const newList = toDoList(newListInput.value);
   sidebarForm.reset();
   obj.unshift(newList);

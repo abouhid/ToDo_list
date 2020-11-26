@@ -2,15 +2,12 @@ import differenceInDays from 'date-fns/differenceInDays';
 import logo from '../images/logo1.png';
 
 const modal = document.querySelector('.modal');
-const advButton = document.querySelector('.advButton');
-const advOptions = document.querySelector('.advanced-options');
-const exitModal = document.querySelector('.exit-modal');
-const modalContent = document.querySelector('.modal-content');
-const modalMessage = document.createElement('p');
-const sidebar = document.querySelector('.sidebar');
-const logoImg = new Image();
-logoImg.src = logo;
-sidebar.prepend(logoImg);
+
+const addLogo = (sidebar) => {
+  const logoImg = new Image();
+  logoImg.src = logo;
+  sidebar.prepend(logoImg);
+};
 
 const stylesToPriority = (obj) => {
   if (obj.textContent === 'H') {
@@ -28,6 +25,10 @@ const formatDate = (date) => {
 
 
 const openModal = (modal, content) => {
+  const exitModal = document.querySelector('.exit-modal');
+  const modalContent = document.querySelector('.modal-content');
+  const modalMessage = document.createElement('p');
+
   modal.style.display = 'block';
   modalMessage.textContent = content;
   modalContent.append(modalMessage, exitModal);
@@ -81,15 +82,18 @@ const addShowDetailsBtn = (container) => {
   return chevron;
 };
 
-advButton.addEventListener('click', () => {
-  if (advOptions.style.display === 'block') {
-    advOptions.style.display = 'none';
-    advButton.innerText = 'Advanced Options';
-  } else {
-    advOptions.style.display = 'block';
-    advButton.textContent = 'Hide Options';
-  }
-});
+const advButtonEvent = (advButton, advOptions) => {
+  advButton.addEventListener('click', () => {
+    if (advOptions.style.display === 'block') {
+      advOptions.style.display = 'none';
+      advButton.innerText = 'Advanced Options';
+    } else {
+      advOptions.style.display = 'block';
+      advButton.textContent = 'Hide Options';
+    }
+  });
+};
+
 const addIcon = () => {
   const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
   link.rel = 'shortcut icon';
@@ -108,4 +112,6 @@ export {
   addShowDetailsBtn,
   modal,
   addIcon,
+  addLogo,
+  advButtonEvent,
 };
