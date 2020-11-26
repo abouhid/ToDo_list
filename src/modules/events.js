@@ -1,6 +1,11 @@
 import { newTaskValidation, modal, openModal } from './helper';
+// import { allTasksList } from '../index'; // eslint-disable-line import/no-cycle
 
 const projectsList = JSON.parse(localStorage.getItem('projectsList')) || [];
+const tasksList = document.querySelector('.tasks-list');
+const doneList = document.querySelector('.done-list');
+const form = document.getElementById('task-form');
+const projectsListContainer = document.querySelector('.project-names');
 
 const saveLocalStorage = () => {
   localStorage.setItem('projectsList', JSON.stringify(projectsList));
@@ -72,13 +77,13 @@ const addEditTaskForm = (obj, i, renderTasks, newTaskValidation) => {
       obj.list[i].dueDate = taskDateInput.value;
       obj.list[i].priority = taskPriorityInput.value;
       saveLocalStorage();
-      renderTasks(obj);
+      renderTasks(obj, tasksList, doneList, form, projectsList);
     }
   });
 
   cancel.addEventListener('click', (e) => {
     e.preventDefault();
-    renderTasks(obj);
+    renderTasks(obj, tasksList, doneList, form, projectsList);
   });
 
   return editForm;
@@ -91,7 +96,7 @@ const addEditTaskBtn = (obj, i, renderTasks, j = null) => {
 
   editBtn.addEventListener('click', () => {
     const editForm = addEditTaskForm(obj, i, renderTasks, newTaskValidation);
-    renderTasks(obj, editForm, i, j);
+    renderTasks(obj, tasksList, doneList, form, projectsList, editForm, i, j);
   });
 
   return editBtn;
@@ -104,7 +109,7 @@ const addDeleteTaskBtn = (obj, i, renderTasks) => {
 
   deleteBtn.addEventListener('click', () => {
     obj.list.splice(i, 1);
-    renderTasks(obj);
+    renderTasks(obj, tasksList, doneList, form, projectsList);
     saveLocalStorage();
   });
 
@@ -119,14 +124,14 @@ const addCheckbox = (obj, i, renderTasks) => {
 
   checkbox.addEventListener('change', () => {
     obj.list[i].status = !!checkbox.checked;
-    renderTasks(obj);
+    renderTasks(obj, tasksList, doneList, form, projectsList);
     saveLocalStorage();
   });
 
   return checkbox;
 };
 
-const addDeleteListBtn = (projectsList, i, renderLists, renderTasks) => {
+const addDeleteListBtn = (projectsList, i, renderLists, renderTasks, allTasksList) => {
   const deleteBtn = document.createElement('span');
 
   deleteBtn.innerHTML = "<i class='fas fa-trash-alt'></i>";
@@ -134,8 +139,8 @@ const addDeleteListBtn = (projectsList, i, renderLists, renderTasks) => {
   deleteBtn.addEventListener('click', () => {
     projectsList.splice(i, 1);
     saveLocalStorage();
-    renderLists(projectsList);
-    renderTasks(projectsList[0]);
+    renderLists(projectsList, projectsListContainer, allTasksList);
+    renderTasks(projectsList[0], tasksList, doneList, form, projectsList);
   });
 
   return deleteBtn;
